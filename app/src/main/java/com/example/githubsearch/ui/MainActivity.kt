@@ -2,13 +2,11 @@ package com.example.githubsearch.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.githubsearch.R
 import com.example.githubsearch.databinding.ActivityMainBinding
-import com.example.githubsearch.model.User
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
@@ -39,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initEditTextAdd() {
         mBinding.etSearchId.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
                 val temp = mBinding.etSearchId.text.toString()
                 mainViewModel.getUserId(temp)
             }
