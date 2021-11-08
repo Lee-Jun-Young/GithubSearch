@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">GithubSearch</string>
+
+    <!-- Main -->
+    <string name="main_toolbar_title">Github Search</string>
+    <string name="main_editText_hint">검색할 Github ID를 입력해주세요.</string>
+
 </resources>

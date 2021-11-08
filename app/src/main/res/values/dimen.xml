@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Main -->
+    <dimen name="main_toolbar_elevation">8dp</dimen>
+    <dimen name="main_toolbar_imageSize">32dp</dimen>
+    <dimen name="main_toolbar_titleMarginStart">10dp</dimen>
+    <dimen name="main_editText_margin">5dp</dimen>
+    <dimen name="main_editText_padding">10dp</dimen>
+    <dimen name="main_editText_size">16dp</dimen>
+    <dimen name="main_swipeLayout_marginStartEnd">5dp</dimen>
+    <dimen name="main_recyclerview_marginTop">10dp</dimen>
+
+    <!-- Main item -->
+    <dimen name="main_item_imageSize">48dp</dimen>
+    <dimen name="main_item_marginTop">10dp</dimen>
+    <dimen name="main_item_imageMarginStart">10dp</dimen>
+    <dimen name="main_item_textViewMarginStart">20dp</dimen>
+    <dimen name="main_item_textViewSize">20dp</dimen>
+
+
+</resources>

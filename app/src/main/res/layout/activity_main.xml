@@ -20,10 +20,9 @@
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:background="@color/white"
-            android:elevation="8dp"
+            android:elevation="@dimen/main_toolbar_elevation"
             android:focusable="true"
-            android:focusableInTouchMode="true"
-            app:contentInsetStart="0dp">
+            android:focusableInTouchMode="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -32,16 +31,16 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="@dimen/main_toolbar_imageSize"
+                    android:layout_height="@dimen/main_toolbar_imageSize"
                     android:src="@drawable/ic_github" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:text="Github Search"
+                    android:layout_marginStart="@dimen/main_toolbar_titleMarginStart"
+                    android:text="@string/main_toolbar_title"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -52,29 +51,29 @@
             android:id="@+id/et_searchId"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="@dimen/main_editText_margin"
+            android:layout_marginTop="@dimen/main_editText_margin"
+            android:layout_marginEnd="@dimen/main_editText_margin"
             android:background="@drawable/round_edit"
-            android:hint="검색할 Github ID를 입력해주세요."
+            android:hint="@string/main_editText_hint"
             android:imeOptions="actionDone"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
+            android:paddingStart="@dimen/main_editText_padding"
+            android:paddingEnd="@dimen/main_editText_padding"
             android:singleLine="true"
-            android:textSize="16dp" />
+            android:textSize="@dimen/main_editText_size" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp">
+            android:layout_marginStart="@dimen/main_swipeLayout_marginStartEnd"
+            android:layout_marginEnd="@dimen/main_swipeLayout_marginStartEnd">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/main_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/main_recyclerview_marginTop"
                 android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
