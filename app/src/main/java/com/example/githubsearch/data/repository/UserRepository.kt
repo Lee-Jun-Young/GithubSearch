@@ -1,28 +1,24 @@
 package com.example.githubsearch.data.repository
 
 import android.app.Application
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.githubsearch.data.remote.api.GithubApi
 import com.example.githubsearch.data.remote.RetrofitBuilder
-import com.example.githubsearch.model.UserResponse
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import retrofit2.HttpException
-import retrofit2.Response
+import com.example.githubsearch.model.User
+import kotlinx.coroutines.flow.Flow
 import retrofit2.Retrofit
 
 class UserRepository(application: Application) {
     private val retrofit: Retrofit = RetrofitBuilder().getInstance()
     private val api = retrofit.create(GithubApi::class.java)
 
-    suspend fun getUserList(userId: String) = withContext(Dispatchers.IO) {
-
-        val response = api.searchUserId(userId, 50, 1)
-        return@withContext if (response.isSuccessful) {
-            val body = response.body()!!
-            body.items
-        } else {
-
-        }
+    fun getUserList(userId: String): Flow<PagingData<User>> {
+        return Pager(
+            config = PagingConfig(pageSize = 50),
+            pagingSourceFactory = { UserDataSource(api, userId, 50) }
+        ).flow
     }
 
 }
