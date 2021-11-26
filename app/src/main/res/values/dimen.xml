@@ -3,7 +3,7 @@
 
     <!-- Main -->
     <dimen name="main_toolbar_elevation">8dp</dimen>
-    <dimen name="main_toolbar_imageSize">32dp</dimen>
+    <dimen name="main_toolbar_imageSize">48dp</dimen>
     <dimen name="main_toolbar_titleMarginStart">10dp</dimen>
     <dimen name="main_editText_margin">5dp</dimen>
     <dimen name="main_editText_padding">10dp</dimen>
@@ -17,5 +17,18 @@
     <dimen name="main_item_imageMarginStart">10dp</dimen>
     <dimen name="main_item_textViewMarginStart">20dp</dimen>
     <dimen name="main_item_textViewSize">20dp</dimen>
+
+    <!-- Detail -->
+    <dimen name="detail_toolbar_marginStart">5dp</dimen>
+    <dimen name="detail_toolbar_padding">15dp</dimen>
+    <dimen name="detail_profile_imageSize">64dp</dimen>
+    <dimen name="detail_profile_imageMarginStart">20dp</dimen>
+    <dimen name="detail_profile_imageMarginTop">20dp</dimen>
+    <dimen name="detail_profile_textMargin">10dp</dimen>
+    <dimen name="detail_profile_textSize">14dp</dimen>
+    <dimen name="detail_repo_textMargin">20dp</dimen>
+    <dimen name="detail_repo_rvPadding">20dp</dimen>
+    <dimen name="detail_repo_rvMarginTop">10dp</dimen>
+
 
 </resources>

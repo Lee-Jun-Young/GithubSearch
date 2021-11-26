@@ -1,7 +1,6 @@
-package com.example.githubsearch.ui
+package com.example.githubsearch.ui.main
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -9,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubsearch.databinding.ItemRvMainBinding
 import com.example.githubsearch.model.User
+import com.example.githubsearch.ui.detail.DetailActivity
 
 class MainAdapter : PagingDataAdapter<User,
         MainAdapter.MainViewHolder>(diffCallback) {
@@ -31,6 +31,7 @@ class MainAdapter : PagingDataAdapter<User,
             itemView.setOnClickListener {
                 val userId = user.login
                 val intent = Intent(itemView.context, DetailActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                 intent.putExtra("userId", userId)
                 itemView.context.startActivity(intent)
             }

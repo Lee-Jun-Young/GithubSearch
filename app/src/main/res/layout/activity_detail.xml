@@ -28,7 +28,7 @@
             <LinearLayout
                 android:layout_width="?android:attr/actionBarSize"
                 android:layout_height="?android:attr/actionBarSize"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="@dimen/detail_toolbar_marginStart"
                 android:orientation="vertical">
 
                 <ImageView
@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:onClick="@{detail::onClick}"
-                    android:padding="15dp"
+                    android:padding="@dimen/detail_toolbar_padding"
                     android:src="@drawable/ic_baseline_arrow_back_ios_24" />
 
             </LinearLayout>
@@ -45,14 +45,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/detail_profile_imageMarginTop"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_marginStart="20dp"
+                android:layout_width="@dimen/detail_profile_imageSize"
+                android:layout_height="@dimen/detail_profile_imageSize"
+                android:layout_marginStart="@dimen/detail_profile_imageMarginStart"
                 android:src="@drawable/ic_github"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="@dimen/detail_profile_textMargin"
                 android:orientation="vertical">
 
                 <TextView
@@ -70,12 +70,12 @@
                     android:layout_height="wrap_content"
                     android:text="Lee-Jun-Young"
                     android:textColor="@color/black"
-                    android:textSize="14dp" />
+                    android:textSize="@dimen/detail_profile_textSize" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/detail_profile_textMargin"
                     android:text="JunYoung Lee" />
 
             </LinearLayout>
@@ -85,16 +85,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:text="Repositories"
+            android:layout_marginStart="@dimen/detail_repo_textMargin"
+            android:layout_marginTop="@dimen/detail_repo_textMargin"
+            android:text="@string/detail_repo_Text"
             android:textColor="@color/black" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingStart="20dp">
+            android:layout_marginTop="@dimen/detail_repo_rvMarginTop"
+            android:paddingStart="@dimen/detail_repo_rvPadding"
+            android:paddingEnd="@dimen/detail_repo_rvPadding">
 
         </androidx.recyclerview.widget.RecyclerView>
 

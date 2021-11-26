@@ -1,4 +1,4 @@
-package com.example.githubsearch.ui
+package com.example.githubsearch.ui.main
 
 import android.app.Application
 import androidx.lifecycle.*
@@ -16,7 +16,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getUserId(userId: String): Flow<PagingData<User>> {
         return repository.getUserList(userId).cachedIn(viewModelScope)
-
     }
 
 }
