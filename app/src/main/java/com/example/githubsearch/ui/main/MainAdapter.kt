@@ -1,5 +1,7 @@
 package com.example.githubsearch.ui
 
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -25,6 +27,13 @@ class MainAdapter : PagingDataAdapter<User,
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(user: User) {
             binding.user = user
+
+            itemView.setOnClickListener {
+                val userId = user.login
+                val intent = Intent(itemView.context, DetailActivity::class.java)
+                intent.putExtra("userId", userId)
+                itemView.context.startActivity(intent)
+            }
         }
     }
 
