@@ -8,6 +8,10 @@
         <variable
             name="detail"
             type="com.example.githubsearch.ui.detail.DetailActivity" />
+
+        <variable
+            name="userInfo"
+            type="com.example.githubsearch.model.UserDetail" />
     </data>
 
     <LinearLayout
@@ -53,7 +57,7 @@
                 android:layout_width="@dimen/detail_profile_imageSize"
                 android:layout_height="@dimen/detail_profile_imageSize"
                 android:layout_marginStart="@dimen/detail_profile_imageMarginStart"
-                android:src="@drawable/ic_github"
+                bind_userImage="@{userInfo.avatarUrl}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,10 +69,10 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/uid"
+                    android:id="@+id/tv_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Lee-Jun-Young"
+                    android:text="@{userInfo.login}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/detail_profile_textSize" />
 
@@ -76,7 +80,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/detail_profile_textMargin"
-                    android:text="JunYoung Lee" />
+                    android:text="@{userInfo.name}" />
 
             </LinearLayout>
 

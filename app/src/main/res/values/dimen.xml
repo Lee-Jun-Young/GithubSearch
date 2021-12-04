@@ -21,7 +21,7 @@
     <!-- Detail -->
     <dimen name="detail_toolbar_marginStart">5dp</dimen>
     <dimen name="detail_toolbar_padding">15dp</dimen>
-    <dimen name="detail_profile_imageSize">64dp</dimen>
+    <dimen name="detail_profile_imageSize">81dp</dimen>
     <dimen name="detail_profile_imageMarginStart">20dp</dimen>
     <dimen name="detail_profile_imageMarginTop">20dp</dimen>
     <dimen name="detail_profile_textMargin">10dp</dimen>

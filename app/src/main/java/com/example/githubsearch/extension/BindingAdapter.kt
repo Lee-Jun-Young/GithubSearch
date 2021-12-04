@@ -9,7 +9,7 @@ object BindingAdapter {
 
     @BindingAdapter("bind_userImage")
     @JvmStatic
-    fun loadImage(imageView: ImageView, avatar_url: String) {
+    fun loadImage(imageView: ImageView, avatar_url: String?) {
         Glide.with(imageView.context).load(avatar_url)
             .into(imageView)
     }

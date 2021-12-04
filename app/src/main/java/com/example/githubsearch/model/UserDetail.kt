@@ -7,12 +7,12 @@ data class UserDetail(
     val login: String,
 
     @SerializedName("avatar_url")
-    val avatarUrl: String,
+    val avatarUrl: String?,
 
     @SerializedName("name")
-    val name: String,
+    val name: String?,
 
-    @SerializedName("repos-url")
+    @SerializedName("repos_url")
     val repoUrl: String
 
 )
