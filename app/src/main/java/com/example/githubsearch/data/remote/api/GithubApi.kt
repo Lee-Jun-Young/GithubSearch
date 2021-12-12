@@ -1,8 +1,8 @@
 package com.example.githubsearch.data.remote.api
 
+import com.example.githubsearch.model.UserRepo
 import com.example.githubsearch.model.UserDetail
 import com.example.githubsearch.model.UserResponse
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -21,4 +21,10 @@ interface GithubApi {
     suspend fun searchByUserId(
         @Path("user") userId: String?
     ): Response<UserDetail>
+
+    @GET("/users/{user}/repos")
+    suspend fun userRepo(
+        @Path("user") userId: String?,
+        @Query("sort") sort: String
+    ): Response<List<UserRepo>>
 }

@@ -21,13 +21,22 @@ class UserDetailRepository(application: Application) {
 
         val response = api.searchByUserId(userId)
         return@withContext if (response.isSuccessful) {
-            Log.d("test!!","성공")
             val body = response.body()!!
-            Log.d("test!!",body.toString())
             body
         } else {
-            Log.d("test!!","실패")
             return@withContext
         }
     }
+
+    suspend fun getRepoData(userId: String?) = withContext(Dispatchers.IO) {
+
+        val response = api.userRepo(userId,"updated")
+        return@withContext if (response.isSuccessful) {
+            val body = response.body()!!
+            body
+        } else {
+            return@withContext
+        }
+    }
+
 }

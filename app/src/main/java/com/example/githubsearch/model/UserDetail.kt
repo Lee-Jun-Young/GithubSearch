@@ -10,9 +10,6 @@ data class UserDetail(
     val avatarUrl: String?,
 
     @SerializedName("name")
-    val name: String?,
-
-    @SerializedName("repos_url")
-    val repoUrl: String
+    val name: String?
 
 )

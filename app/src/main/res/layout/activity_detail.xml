@@ -12,6 +12,7 @@
         <variable
             name="userInfo"
             type="com.example.githubsearch.model.UserDetail" />
+
     </data>
 
     <LinearLayout
@@ -44,6 +45,7 @@
                     android:src="@drawable/ic_baseline_arrow_back_ios_24" />
 
             </LinearLayout>
+
         </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
@@ -54,10 +56,10 @@
 
             <ImageView
                 android:id="@+id/imageView"
+                bind_userImage="@{userInfo.avatarUrl}"
                 android:layout_width="@dimen/detail_profile_imageSize"
                 android:layout_height="@dimen/detail_profile_imageSize"
                 android:layout_marginStart="@dimen/detail_profile_imageMarginStart"
-                bind_userImage="@{userInfo.avatarUrl}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -95,13 +97,15 @@
             android:textColor="@color/black" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/detail_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/detail_repo_rvMarginTop"
+            android:overScrollMode="never"
             android:paddingStart="@dimen/detail_repo_rvPadding"
-            android:paddingEnd="@dimen/detail_repo_rvPadding">
+            android:paddingEnd="@dimen/detail_repo_rvPadding"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
         </androidx.recyclerview.widget.RecyclerView>
-
     </LinearLayout>
 </layout>
