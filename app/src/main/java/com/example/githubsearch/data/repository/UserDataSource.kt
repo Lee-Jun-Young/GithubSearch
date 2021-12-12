@@ -18,8 +18,7 @@ class UserDataSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, User> {
         try {
             val nextPage = params.key ?: 1
-            val response = githubApi.searchUserId(userId, pageSize, nextPage)
-            Log.d("test!!",response.body()!!.totalCount.toString())
+            val response = githubApi.searchUser(userId, pageSize, nextPage)
             if (response.isSuccessful) {
                 val body = response.body()
                 if (body != null) {
@@ -29,8 +28,7 @@ class UserDataSource(
                         prevKey = null,
                         nextKey = if (isAvailable) nextPage + 1 else null
                     )
-                }
-                else {
+                } else {
                     throw NullPointerException("response body is null")
                 }
             } else {

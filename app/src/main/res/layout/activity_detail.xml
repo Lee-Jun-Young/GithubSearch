@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="detail"
+            type="com.example.githubsearch.ui.detail.DetailActivity" />
+
+        <variable
+            name="userInfo"
+            type="com.example.githubsearch.model.UserDetail" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.detail.DetailActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/black"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:contentInsetStart="0dp">
+
+            <LinearLayout
+                android:layout_width="?android:attr/actionBarSize"
+                android:layout_height="?android:attr/actionBarSize"
+                android:layout_marginStart="@dimen/detail_toolbar_marginStart"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_moveBack"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="@{detail::onClick}"
+                    android:padding="@dimen/detail_toolbar_padding"
+                    android:src="@drawable/ic_baseline_arrow_back_ios_24" />
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/detail_profile_imageMarginTop"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView"
+                bind_userImage="@{userInfo.avatarUrl}"
+                android:layout_width="@dimen/detail_profile_imageSize"
+                android:layout_height="@dimen/detail_profile_imageSize"
+                android:layout_marginStart="@dimen/detail_profile_imageMarginStart"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/detail_profile_textMargin"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{userInfo.login}"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/detail_profile_textSize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/detail_profile_textMargin"
+                    android:text="@{userInfo.name}" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/detail_repo_textMargin"
+            android:layout_marginTop="@dimen/detail_repo_textMargin"
+            android:text="@string/detail_repo_Text"
+            android:textColor="@color/black" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/detail_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/detail_repo_rvMarginTop"
+            android:overScrollMode="never"
+            android:paddingStart="@dimen/detail_repo_rvPadding"
+            android:paddingEnd="@dimen/detail_repo_rvPadding"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+</layout>
