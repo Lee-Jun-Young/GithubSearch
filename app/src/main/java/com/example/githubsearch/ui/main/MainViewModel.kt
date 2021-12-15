@@ -1,21 +1,37 @@
 package com.example.githubsearch.ui.main
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
+import androidx.paging.*
 import com.example.githubsearch.data.repository.UserRepository
 import com.example.githubsearch.model.User
 import kotlinx.coroutines.flow.Flow
+import java.io.IOException
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = UserRepository(application)
 
-    private var _data = MutableLiveData<List<User>>()
-    val data: LiveData<List<User>> = _data
+    private var _data = MutableLiveData<Flow<PagingData<User>>>()
+    val data: LiveData<Flow<PagingData<User>>> = _data
 
-    fun getUserId(userId: String): Flow<PagingData<User>> {
-        return repository.getUserList(userId).cachedIn(viewModelScope)
+    private var _isEmpty = MutableLiveData<Boolean>()
+    val isEmpty: LiveData<Boolean> = _isEmpty
+
+    val searchId = MutableLiveData<String>()
+
+    fun getUserId() {
+        val userId = searchId.value
+        _data.value = Pager(
+            PagingConfig(pageSize = 50)
+        ){
+            repository.getUserList(userId.toString(),50)
+        }.flow
+    }
+
+    fun setUsersLoadState(loadState: CombinedLoadStates?) {
+        val state = loadState?.refresh
+        _isEmpty.value = state is LoadState.Error || state == null
     }
 
 }
