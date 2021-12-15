@@ -31,34 +31,30 @@ class MainActivity : AppCompatActivity() {
         }
 
         initEditTextAdd()
-        initRecyclerview()
         initObservers()
-    }
-
-    private fun initRecyclerview() {
-        adapter = MainAdapter()
-        mBinding.mainRecyclerview.adapter = adapter
     }
 
     private fun initObservers() {
         mainViewModel.isEmpty.observe(this) {
-            if(it){
+            if (it) {
                 mBinding.refreshLayout.visibility = View.GONE
                 mBinding.emptyView.visibility = View.VISIBLE
-            }else{
+            } else {
                 mBinding.refreshLayout.visibility = View.VISIBLE
                 mBinding.emptyView.visibility = View.GONE
             }
         }
 
         mainViewModel.data.observe(this) {
-            adapter.apply {
+            adapter = MainAdapter().apply {
                 addLoadStateListener { state ->
                     mainViewModel.setUsersLoadState(
                         if (state.refresh is LoadState.NotLoading && itemCount == 0) null else state
                     )
                 }
             }
+
+            mBinding.mainRecyclerview.adapter = adapter
 
             lifecycleScope.launch {
                 it.collectLatest {
