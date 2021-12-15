@@ -35,16 +35,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initObservers() {
-        mainViewModel.isEmpty.observe(this) {
-            if (it) {
-                mBinding.refreshLayout.visibility = View.GONE
-                mBinding.emptyView.visibility = View.VISIBLE
-            } else {
-                mBinding.refreshLayout.visibility = View.VISIBLE
-                mBinding.emptyView.visibility = View.GONE
-            }
-        }
-
         mainViewModel.data.observe(this) {
             adapter = MainAdapter().apply {
                 addLoadStateListener { state ->
