@@ -18,6 +18,10 @@
     <dimen name="main_item_textViewMarginStart">20dp</dimen>
     <dimen name="main_item_textViewSize">20dp</dimen>
 
+    <!-- Main EmptyView -->
+    <dimen name="main_empty_imageSize">60dp</dimen>
+    <dimen name="main_empty_textMarginTop">5dp</dimen>
+
     <!-- Detail -->
     <dimen name="detail_toolbar_marginStart">5dp</dimen>
     <dimen name="detail_toolbar_padding">15dp</dimen>
