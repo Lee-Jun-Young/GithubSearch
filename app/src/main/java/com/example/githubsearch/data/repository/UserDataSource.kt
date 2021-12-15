@@ -21,16 +21,12 @@ class UserDataSource(
             val response = githubApi.searchUser(userId, pageSize, nextPage)
             if (response.isSuccessful) {
                 val body = response.body()
-                if (body != null) {
-                    val isAvailable = body.totalCount > pageSize * nextPage
-                    return LoadResult.Page(
-                        data = body.items,
-                        prevKey = null,
-                        nextKey = if (isAvailable) nextPage + 1 else null
-                    )
-                } else {
-                    throw NullPointerException("response body is null")
-                }
+                val isAvailable = body!!.totalCount > pageSize * nextPage
+                return LoadResult.Page(
+                    data = body.items,
+                    prevKey = null,
+                    nextKey = if (isAvailable) nextPage + 1 else null
+                )
             } else {
                 throw HttpException(response)
             }
