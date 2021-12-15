@@ -18,15 +18,25 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private var _isEmpty = MutableLiveData<Boolean>()
     val isEmpty: LiveData<Boolean> = _isEmpty
 
+    private var _isBlank = MutableLiveData<String>()
+    var isBlank: LiveData<String> = _isBlank
+
     val searchId = MutableLiveData<String>()
 
     fun getUserId() {
         val userId = searchId.value
+
+        if (userId.isNullOrBlank()) {
+            _isBlank.value = "검색어를 입력해주세요."
+            return
+        }
+
         _data.value = Pager(
             PagingConfig(pageSize = 50)
-        ){
-            repository.getUserList(userId.toString(),50)
+        ) {
+            repository.getUserList(userId.toString(), 50)
         }.flow
+
     }
 
     fun setUsersLoadState(loadState: CombinedLoadStates?) {

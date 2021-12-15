@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
@@ -35,6 +36,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initObservers() {
+        mainViewModel.isBlank.observe(this){
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        }
+
         mainViewModel.data.observe(this) {
             adapter = MainAdapter().apply {
                 addLoadStateListener { state ->
