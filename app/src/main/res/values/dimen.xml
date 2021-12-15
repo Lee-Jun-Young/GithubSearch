@@ -34,5 +34,15 @@
     <dimen name="detail_repo_rvPadding">20dp</dimen>
     <dimen name="detail_repo_rvMarginTop">10dp</dimen>
 
+    <!-- Detail item -->
+    <dimen name="detail_item_padding">10dp</dimen>
+    <dimen name="detail_item_marginTop">10dp</dimen>
+    <dimen name="detail_item_marginBottom">5p</dimen>
+    <dimen name="detail_item_marginStart">5dp</dimen>
+    <dimen name="detail_item_textSize">16dp</dimen>
+    <dimen name="detail_item_imageSize">14dp</dimen>
+
+
+
 
 </resources>

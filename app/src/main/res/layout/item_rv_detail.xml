@@ -13,47 +13,47 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="@dimen/detail_item_marginTop"
+        android:layout_marginBottom="@dimen/detail_item_marginBottom"
         android:background="@drawable/round_edit"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="@dimen/detail_item_padding">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{repo.name}"
             android:textColor="@color/purple_700"
-            android:textSize="16dp"
-            tools:text="WhereIs" />
+            android:textSize="@dimen/detail_item_textSize"
+            tools:text="Repo Name" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="@dimen/detail_item_marginTop"
             android:text="@{repo.description}"
             android:textColor="@color/black"
-            tools:text="스마트택배 API를 활용한 앱입니다." />
+            tools:text="Repo Description" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/detail_item_marginTop"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
+                android:layout_width="@dimen/detail_item_imageSize"
+                android:layout_height="@dimen/detail_item_imageSize"
                 android:src="@drawable/ic_language" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="@dimen/detail_item_marginStart"
                 android:text="@{repo.language}"
                 android:textColor="@color/black"
-                tools:text="kotlin" />
+                tools:text="Repo Language" />
         </LinearLayout>
 
 
