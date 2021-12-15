@@ -8,10 +8,6 @@
         <import type="android.view.View" />
 
         <variable
-            name="main"
-            type="com.example.githubsearch.ui.main.MainActivity" />
-
-        <variable
             name="mainVm"
             type="com.example.githubsearch.ui.main.MainViewModel" />
     </data>
@@ -101,17 +97,17 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="@dimen/main_empty_imageSize"
+                    android:layout_height="@dimen/main_empty_imageSize"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_empty_github" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="@dimen/main_empty_textMarginTop"
                     android:gravity="center"
-                    android:text="검색결과가 없습니다.\n 다른 ID를 입력해주세요."
+                    android:text="@string/main_empty_text"
                     android:textColor="@color/black" />
 
             </LinearLayout>
