@@ -1,5 +1,6 @@
 package com.example.githubsearch.extension
 
+import android.widget.EditText
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,5 +18,6 @@ object BindingAdapter {
         Glide.with(imageView.context).load(avatar_url)
             .into(imageView)
     }
+
 
 }

@@ -2,10 +2,13 @@ package com.example.githubsearch.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import com.example.githubsearch.R
 import com.example.githubsearch.databinding.ActivityMainBinding
 import kotlinx.coroutines.flow.collectLatest
@@ -21,6 +24,8 @@ class MainActivity : AppCompatActivity() {
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mBinding.main = this@MainActivity
+        mBinding.mainVm = mainViewModel
+        mBinding.lifecycleOwner = this@MainActivity
 
         mBinding.refreshLayout.setOnRefreshListener {
             mBinding.refreshLayout.isRefreshing = false
@@ -28,6 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         initEditTextAdd()
         initRecyclerview()
+        initObservers()
     }
 
     private fun initRecyclerview() {
@@ -35,15 +41,38 @@ class MainActivity : AppCompatActivity() {
         mBinding.mainRecyclerview.adapter = adapter
     }
 
+    private fun initObservers() {
+        mainViewModel.isEmpty.observe(this) {
+            if(it){
+                mBinding.refreshLayout.visibility = View.GONE
+                mBinding.emptyView.visibility = View.VISIBLE
+            }else{
+                mBinding.refreshLayout.visibility = View.VISIBLE
+                mBinding.emptyView.visibility = View.GONE
+            }
+        }
+
+        mainViewModel.data.observe(this) {
+            adapter.apply {
+                addLoadStateListener { state ->
+                    mainViewModel.setUsersLoadState(
+                        if (state.refresh is LoadState.NotLoading && itemCount == 0) null else state
+                    )
+                }
+            }
+
+            lifecycleScope.launch {
+                it.collectLatest {
+                    adapter.submitData(it)
+                }
+            }
+        }
+    }
+
     private fun initEditTextAdd() {
         mBinding.etSearchId.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                val temp = mBinding.etSearchId.text.toString()
-                lifecycleScope.launch {
-                    mainViewModel.getUserId(temp).collectLatest {
-                        adapter.submitData(it)
-                    }
-                }
+                mainViewModel.getUserId()
             }
             false
         }
