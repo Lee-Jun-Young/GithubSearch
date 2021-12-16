@@ -38,10 +38,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun itemOnClick(user: User) {
-        val intent = Intent(this, DetailActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-        intent.putExtra("userId", user.login)
-        startActivity(intent)
+        startActivity(
+            Intent(this, DetailActivity::class.java)
+                .putExtra("userId", user.login)
+                .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+        )
     }
 
     private fun initObservers() {
