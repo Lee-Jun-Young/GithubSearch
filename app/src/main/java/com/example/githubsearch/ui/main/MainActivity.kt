@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
             mBinding.refreshLayout.isRefreshing = false
         }
 
-        //initEditTextAdd()
         initObservers()
     }
 
