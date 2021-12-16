@@ -1,7 +1,9 @@
 package com.example.githubsearch.ui.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.UserManager
 import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
@@ -11,6 +13,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.example.githubsearch.R
 import com.example.githubsearch.databinding.ActivityMainBinding
+import com.example.githubsearch.model.User
+import com.example.githubsearch.ui.detail.DetailActivity
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -33,13 +37,20 @@ class MainActivity : AppCompatActivity() {
         initObservers()
     }
 
+    private fun itemOnClick(user: User) {
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+        intent.putExtra("userId", user.login)
+        startActivity(intent)
+    }
+
     private fun initObservers() {
-        mainViewModel.isBlank.observe(this){
+        mainViewModel.isBlank.observe(this) {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
 
         mainViewModel.data.observe(this) {
-            adapter = MainAdapter().apply {
+            adapter = MainAdapter(::itemOnClick).apply {
                 addLoadStateListener { state ->
                     mainViewModel.setUsersLoadState(
                         if (state.refresh is LoadState.NotLoading && itemCount == 0) null else state

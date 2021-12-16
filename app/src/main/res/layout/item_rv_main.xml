@@ -4,16 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.example.githubsearch.model.User"/>
+        <import type="kotlin.Unit"/>
 
         <variable
             name="user"
             type="com.example.githubsearch.model.User" />
+
+        <variable
+            name="onClick"
+            type="kotlin.jvm.functions.Function1&lt;User, Unit>"/>
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:layout_marginTop="@dimen/main_item_marginTop"
+        android:onClick="@{() -> onClick.invoke(user)}"
         android:orientation="horizontal">
 
         <ImageView

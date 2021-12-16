@@ -10,31 +10,30 @@ import com.example.githubsearch.databinding.ItemRvMainBinding
 import com.example.githubsearch.model.User
 import com.example.githubsearch.ui.detail.DetailActivity
 
-class MainAdapter : PagingDataAdapter<User,
-        MainAdapter.MainViewHolder>(diffCallback) {
+class MainAdapter(
+    private val onClick: (User) -> Unit
+) : PagingDataAdapter<User, MainAdapter.MainViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val binding =
             ItemRvMainBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MainViewHolder(binding)
+        return MainViewHolder(binding, onClick)
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         holder.onBind(getItem(position)!!)
     }
 
-    inner class MainViewHolder(private val binding: ItemRvMainBinding) :
+    inner class MainViewHolder(
+        private val binding: ItemRvMainBinding,
+        private val onClick: (User) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(user: User) {
-            binding.user = user
 
-            itemView.setOnClickListener {
-                val userId = user.login
-                val intent = Intent(itemView.context, DetailActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                intent.putExtra("userId", userId)
-                itemView.context.startActivity(intent)
-            }
+        fun onBind(user: User) {
+            binding.onClick = onClick
+            binding.user = user
+            binding.executePendingBindings()
         }
     }
 
