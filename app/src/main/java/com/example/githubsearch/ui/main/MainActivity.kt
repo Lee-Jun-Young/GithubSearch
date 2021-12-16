@@ -3,7 +3,6 @@ package com.example.githubsearch.ui.main
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -31,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             mBinding.refreshLayout.isRefreshing = false
         }
 
-        initEditTextAdd()
+        //initEditTextAdd()
         initObservers()
     }
 
@@ -56,15 +55,6 @@ class MainActivity : AppCompatActivity() {
                     adapter.submitData(it)
                 }
             }
-        }
-    }
-
-    private fun initEditTextAdd() {
-        mBinding.etSearchId.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                mainViewModel.getUserId()
-            }
-            false
         }
     }
 

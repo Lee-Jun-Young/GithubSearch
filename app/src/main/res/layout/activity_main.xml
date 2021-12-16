@@ -51,6 +51,7 @@
 
         <EditText
             android:id="@+id/et_searchId"
+            etAction="@{mainVm::getUserId}"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_marginStart="@dimen/main_editText_margin"

@@ -1,7 +1,9 @@
 package com.example.githubsearch.extension
 
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,5 +21,15 @@ object BindingAdapter {
             .into(imageView)
     }
 
+    @BindingAdapter("etAction")
+    @JvmStatic
+    fun onAction(editText: EditText, execute: () -> Unit){
+        editText.setOnEditorActionListener { _, actionId, _ ->
+            if(actionId == EditorInfo.IME_ACTION_DONE){
+                execute.invoke()
+            }
+            false
+        }
+    }
 
 }
