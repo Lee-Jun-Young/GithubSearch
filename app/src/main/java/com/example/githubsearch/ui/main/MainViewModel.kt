@@ -1,13 +1,11 @@
 package com.example.githubsearch.ui.main
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import androidx.paging.*
 import com.example.githubsearch.data.repository.UserRepository
 import com.example.githubsearch.model.User
 import kotlinx.coroutines.flow.Flow
-import java.io.IOException
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = UserRepository(application)

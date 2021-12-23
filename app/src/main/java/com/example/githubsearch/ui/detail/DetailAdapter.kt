@@ -1,16 +1,12 @@
 package com.example.githubsearch.ui.detail
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubsearch.databinding.ItemRvDetailBinding
-import com.example.githubsearch.databinding.ItemRvMainBinding
-import com.example.githubsearch.model.User
 import com.example.githubsearch.model.UserRepo
-import com.example.githubsearch.ui.main.MainAdapter
 
 class DetailAdapter : PagingDataAdapter<UserRepo, DetailAdapter.MainViewHolder>(diffCallback) {
 

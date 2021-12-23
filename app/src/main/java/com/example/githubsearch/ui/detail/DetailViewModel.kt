@@ -1,7 +1,6 @@
 package com.example.githubsearch.ui.detail
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +9,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.githubsearch.data.repository.UserDetailRepository
-import com.example.githubsearch.model.User
 import com.example.githubsearch.model.UserDetail
 import com.example.githubsearch.model.UserRepo
 import kotlinx.coroutines.flow.Flow

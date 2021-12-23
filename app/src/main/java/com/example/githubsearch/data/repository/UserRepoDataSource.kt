@@ -3,7 +3,6 @@ package com.example.githubsearch.data.repository
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.githubsearch.data.remote.api.GithubApi
-import com.example.githubsearch.model.User
 import com.example.githubsearch.model.UserRepo
 import retrofit2.HttpException
 import java.lang.Exception

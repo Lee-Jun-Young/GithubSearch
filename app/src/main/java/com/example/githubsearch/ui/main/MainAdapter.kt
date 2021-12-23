@@ -1,6 +1,5 @@
 package com.example.githubsearch.ui.main
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -8,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubsearch.databinding.ItemRvMainBinding
 import com.example.githubsearch.model.User
-import com.example.githubsearch.ui.detail.DetailActivity
 
 class MainAdapter(
     private val onClick: (User) -> Unit

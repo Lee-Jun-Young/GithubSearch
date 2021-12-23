@@ -2,24 +2,14 @@ package com.example.githubsearch.ui.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import com.example.githubsearch.R
-import com.example.githubsearch.data.remote.RetrofitBuilder
-import com.example.githubsearch.data.remote.api.GithubApi
 import com.example.githubsearch.databinding.ActivityDetailBinding
-import com.example.githubsearch.model.UserRepo
-import com.example.githubsearch.ui.main.MainAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
 
 class DetailActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var dBinding: ActivityDetailBinding
