@@ -6,14 +6,17 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubsearch.databinding.ItemRvDetailBinding
+import com.example.githubsearch.model.User
 import com.example.githubsearch.model.UserRepo
 
-class DetailAdapter : PagingDataAdapter<UserRepo, DetailAdapter.MainViewHolder>(diffCallback) {
+class DetailAdapter(
+    private val onClick: (UserRepo) -> Unit
+) : PagingDataAdapter<UserRepo, DetailAdapter.MainViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val binding =
             ItemRvDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MainViewHolder(binding)
+        return MainViewHolder(binding, onClick)
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
@@ -22,10 +25,12 @@ class DetailAdapter : PagingDataAdapter<UserRepo, DetailAdapter.MainViewHolder>(
 
     inner class MainViewHolder(
         private val binding: ItemRvDetailBinding,
+        private val onClick: (UserRepo) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(repo: UserRepo) {
+            binding.onClick = onClick
             binding.repo = repo
             binding.executePendingBindings()
         }

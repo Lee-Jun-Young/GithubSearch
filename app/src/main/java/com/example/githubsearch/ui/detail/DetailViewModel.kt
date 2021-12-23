@@ -29,7 +29,6 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
             val detailData = repository.getUserData(userId)
 
             _info.postValue(detailData as UserDetail?)
-
         }
 
         _repo.value = Pager(

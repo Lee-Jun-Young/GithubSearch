@@ -5,9 +5,17 @@
 
     <data>
 
+        <import type="com.example.githubsearch.model.UserRepo" />
+
+        <import type="kotlin.Unit" />
+
         <variable
             name="repo"
             type="com.example.githubsearch.model.UserRepo" />
+
+        <variable
+            name="onClick"
+            type="kotlin.jvm.functions.Function1&lt;UserRepo, Unit>" />
     </data>
 
     <LinearLayout
@@ -16,6 +24,7 @@
         android:layout_marginTop="@dimen/detail_item_marginTop"
         android:layout_marginBottom="@dimen/detail_item_marginBottom"
         android:background="@drawable/round_edit"
+        android:onClick="@{() -> onClick.invoke(repo)}"
         android:orientation="vertical"
         android:padding="@dimen/detail_item_padding">
 
