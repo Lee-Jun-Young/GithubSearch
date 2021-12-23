@@ -21,15 +21,8 @@ class UserDetailRepository(application: Application) {
         }
     }
 
-    suspend fun getRepoData(userId: String?) = withContext(Dispatchers.IO) {
+    fun getRepoData(userId: String, pageSize: Int) =
+        UserRepoDataSource(api, sort = "updated", userId, pageSize)
 
-        val response = api.userRepo(userId,"updated")
-        return@withContext if (response.isSuccessful) {
-            val body = response.body()!!
-            body
-        } else {
-            return@withContext
-        }
-    }
 
 }

@@ -7,12 +7,15 @@ import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
 import com.example.githubsearch.R
 import com.example.githubsearch.data.remote.RetrofitBuilder
 import com.example.githubsearch.data.remote.api.GithubApi
 import com.example.githubsearch.databinding.ActivityDetailBinding
 import com.example.githubsearch.model.UserRepo
 import com.example.githubsearch.ui.main.MainAdapter
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,9 +42,12 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
 
         detailViewModel.repo.observe(this) {
             adapter = DetailAdapter()
-            adapter.notifyDataSetChanged()
             dBinding.detailRecyclerview.adapter = adapter
-            adapter.setList(it)
+            lifecycleScope.launch {
+                it.collectLatest {
+                    adapter.submitData(it)
+                }
+            }
         }
 
     }

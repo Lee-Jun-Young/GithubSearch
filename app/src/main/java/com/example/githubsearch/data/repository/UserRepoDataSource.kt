@@ -4,24 +4,26 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.githubsearch.data.remote.api.GithubApi
 import com.example.githubsearch.model.User
+import com.example.githubsearch.model.UserRepo
 import retrofit2.HttpException
 import java.lang.Exception
 
-class UserDataSource(
+class UserRepoDataSource(
     private val githubApi: GithubApi,
+    private val sort: String,
     private val userId: String,
     private val pageSize: Int
-) : PagingSource<Int, User>() {
+) : PagingSource<Int, UserRepo>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, User> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UserRepo> {
         try {
             val nextPage = params.key ?: 1
-            val response = githubApi.searchUser(userId, pageSize, nextPage)
+            val response = githubApi.searchUserRepo(userId, sort, pageSize, nextPage)
             if (response.isSuccessful) {
                 val body = response.body()
-                val isAvailable = body!!.totalCount > pageSize * nextPage
+                val isAvailable = body!!.size > pageSize * nextPage
                 return LoadResult.Page(
-                    data = body.items,
+                    data = body,
                     prevKey = null,
                     nextKey = if (isAvailable) nextPage + 1 else null
                 )
@@ -33,7 +35,7 @@ class UserDataSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, User>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, UserRepo>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)

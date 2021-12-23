@@ -23,8 +23,10 @@ interface GithubApi {
     ): Response<UserDetail>
 
     @GET("/users/{user}/repos")
-    suspend fun userRepo(
+    suspend fun searchUserRepo(
         @Path("user") userId: String?,
-        @Query("sort") sort: String
+        @Query("sort") sort: String,
+        @Query("per_page") size: Int,
+        @Query("page") page: Int
     ): Response<List<UserRepo>>
 }
