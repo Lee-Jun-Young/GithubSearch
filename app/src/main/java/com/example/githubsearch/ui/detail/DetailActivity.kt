@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
+import com.example.githubsearch.BuildConfig
 import com.example.githubsearch.R
 import com.example.githubsearch.databinding.ActivityDetailBinding
 import com.example.githubsearch.model.User
@@ -48,7 +49,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun itemOnClick(userRepo: UserRepo) {
         dBinding.resultView.visibility = View.GONE
-        dBinding.webView.loadUrl("https://github.com/" + userRepo.full_name)
+        dBinding.webView.loadUrl(BuildConfig.WEBVIEW_BASE_URL + userRepo.full_name)
     }
 
     override fun onBackPressed() {
