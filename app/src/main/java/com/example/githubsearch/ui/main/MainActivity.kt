@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         mBinding.lifecycleOwner = this@MainActivity
 
         mBinding.refreshLayout.setOnRefreshListener {
+            mainViewModel.getUserId()
             mBinding.refreshLayout.isRefreshing = false
         }
 
