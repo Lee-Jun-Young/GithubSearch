@@ -14,11 +14,12 @@ android {
         targetSdkVersion 31
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "BASE_URL", '"https://api.github.com"')
-        buildConfigField("String", "WEBVIEW_BASE_URL", '"https://github.com"')
+        buildConfigField("String", "WEBVIEW_BASE_URL", '"https://github.com/"')
     }
 
     buildTypes {
