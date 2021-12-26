@@ -32,6 +32,10 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         val str = intent.getStringExtra("userId")
         detailViewModel.loadData(str)
 
+        initObservers()
+    }
+
+    private fun initObservers(){
         detailViewModel.info.observe(this) {
             dBinding.userInfo = it
         }
