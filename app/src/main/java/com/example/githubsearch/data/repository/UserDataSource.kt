@@ -14,22 +14,18 @@ class UserDataSource(
 ) : PagingSource<Int, User>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, User> {
-        try {
+        return try {
             val nextPage = params.key ?: 1
             val response = githubApi.searchUser(userId, pageSize, nextPage)
-            if (response.isSuccessful) {
-                val body = response.body()
-                val isAvailable = body!!.totalCount > pageSize * nextPage
-                return LoadResult.Page(
-                    data = body.items,
-                    prevKey = null,
-                    nextKey = if (isAvailable) nextPage + 1 else null
-                )
-            } else {
-                throw HttpException(response)
-            }
+            val body = response.body()
+            val isAvailable = body!!.totalCount > pageSize * nextPage
+            LoadResult.Page(
+                data = body.items,
+                prevKey = null,
+                nextKey = if (isAvailable) nextPage + 1 else null
+            )
         } catch (e: Exception) {
-            return LoadResult.Error(e)
+            LoadResult.Error(e)
         }
     }
 
