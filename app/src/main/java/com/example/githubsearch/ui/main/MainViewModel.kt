@@ -1,11 +1,13 @@
 package com.example.githubsearch.ui.main
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import androidx.paging.*
 import com.example.githubsearch.data.repository.UserRepository
 import com.example.githubsearch.model.User
 import kotlinx.coroutines.flow.Flow
+
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = UserRepository(application)
@@ -39,7 +41,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun setUsersLoadState(loadState: CombinedLoadStates?) {
         val state = loadState?.refresh
-        _isEmpty.value = state is LoadState.Error || state == null
+        _isEmpty.value = state == null
     }
 
 }
