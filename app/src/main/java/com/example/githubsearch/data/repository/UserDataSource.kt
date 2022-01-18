@@ -2,13 +2,12 @@ package com.example.githubsearch.data.repository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.githubsearch.data.remote.api.GithubApi
+import com.example.githubsearch.data.remote.api.GithubService
 import com.example.githubsearch.model.User
-import retrofit2.HttpException
 import java.lang.Exception
 
 class UserDataSource(
-    private val githubApi: GithubApi,
+    private val githubService: GithubService,
     private val userId: String,
     private val pageSize: Int
 ) : PagingSource<Int, User>() {
@@ -16,7 +15,7 @@ class UserDataSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, User> {
         return try {
             val nextPage = params.key ?: 1
-            val response = githubApi.searchUser(userId, pageSize, nextPage)
+            val response = githubService.searchUser(userId, pageSize, nextPage)
             val body = response.body()
             val isAvailable = body!!.totalCount > pageSize * nextPage
             LoadResult.Page(

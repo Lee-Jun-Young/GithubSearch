@@ -2,12 +2,12 @@ package com.example.githubsearch.data.repository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.githubsearch.data.remote.api.GithubApi
+import com.example.githubsearch.data.remote.api.GithubService
 import com.example.githubsearch.model.UserRepo
 import java.lang.Exception
 
 class UserRepoDataSource(
-    private val githubApi: GithubApi,
+    private val githubService: GithubService,
     private val sort: String,
     private val userId: String,
     private val pageSize: Int
@@ -16,7 +16,7 @@ class UserRepoDataSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UserRepo> {
         return try {
             val nextPage = params.key ?: 1
-            val response = githubApi.searchUserRepo(userId, sort, pageSize, nextPage)
+            val response = githubService.searchUserRepo(userId, sort, pageSize, nextPage)
             val body = response.body()
             val isAvailable = body!!.size > pageSize * nextPage
             LoadResult.Page(

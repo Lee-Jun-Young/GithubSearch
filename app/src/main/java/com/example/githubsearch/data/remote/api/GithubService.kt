@@ -8,7 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface GithubApi {
+interface GithubService {
 
     @GET("/search/users")
     suspend fun searchUser(
