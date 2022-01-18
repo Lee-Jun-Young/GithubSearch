@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.githubsearch.BuildConfig
 import com.example.githubsearch.R
 import com.example.githubsearch.data.repository.UserRepository
+import com.example.githubsearch.data.repository.UserRepositoryImpl
 import com.example.githubsearch.databinding.ActivityDetailBinding
 import com.example.githubsearch.model.User
 import com.example.githubsearch.model.UserRepo
@@ -33,7 +34,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         dBinding.lifecycleOwner = this
         dBinding.detail = this@DetailActivity
 
-        detailViewModel = ViewModelProvider(this, ViewModelFactory(UserRepository()))
+        detailViewModel = ViewModelProvider(this, ViewModelFactory(UserRepositoryImpl()))
             .get(DetailViewModel::class.java)
 
         val str = intent.getStringExtra("userId")

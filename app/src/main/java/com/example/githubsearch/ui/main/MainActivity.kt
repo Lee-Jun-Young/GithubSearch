@@ -12,8 +12,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.example.githubsearch.R
 import com.example.githubsearch.data.repository.UserRepository
+import com.example.githubsearch.data.repository.UserRepositoryImpl
 import com.example.githubsearch.databinding.ActivityMainBinding
 import com.example.githubsearch.model.User
+import com.example.githubsearch.model.UserRepo
 import com.example.githubsearch.ui.ViewModelFactory
 import com.example.githubsearch.ui.detail.DetailActivity
 import kotlinx.coroutines.flow.collectLatest
@@ -29,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        mainViewModel = ViewModelProvider(this, ViewModelFactory(UserRepository()))
+        mainViewModel = ViewModelProvider(this, ViewModelFactory(UserRepositoryImpl()))
             .get(MainViewModel::class.java)
         mBinding.mainVm = mainViewModel
         mBinding.lifecycleOwner = this@MainActivity
