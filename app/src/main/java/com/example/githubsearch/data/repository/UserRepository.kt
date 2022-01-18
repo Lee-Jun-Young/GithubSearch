@@ -6,7 +6,7 @@ import com.example.githubsearch.data.remote.RetrofitBuilder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class UserRepository(application: Application) {
+class UserRepository {
 
     private val api: GithubApi = RetrofitBuilder().getRetrofit()
 

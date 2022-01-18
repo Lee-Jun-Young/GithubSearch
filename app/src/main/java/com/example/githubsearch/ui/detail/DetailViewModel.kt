@@ -1,10 +1,7 @@
 package com.example.githubsearch.ui.detail
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -14,9 +11,7 @@ import com.example.githubsearch.model.UserRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-class DetailViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val repository = UserRepository(application)
+class DetailViewModel(private val repository: UserRepository) : ViewModel() {
 
     private val _info = MutableLiveData<UserDetail>()
     val info: LiveData<UserDetail> = _info

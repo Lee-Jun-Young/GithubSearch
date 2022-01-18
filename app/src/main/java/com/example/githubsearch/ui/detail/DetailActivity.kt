@@ -7,20 +7,24 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.githubsearch.BuildConfig
 import com.example.githubsearch.R
+import com.example.githubsearch.data.repository.UserRepository
 import com.example.githubsearch.databinding.ActivityDetailBinding
 import com.example.githubsearch.model.User
 import com.example.githubsearch.model.UserRepo
+import com.example.githubsearch.ui.ViewModelFactory
 import com.example.githubsearch.ui.main.MainAdapter
+import com.example.githubsearch.ui.main.MainViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class DetailActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var dBinding: ActivityDetailBinding
-    private val detailViewModel: DetailViewModel by viewModels()
-    private lateinit var adapter : DetailAdapter
+    private lateinit var detailViewModel: DetailViewModel
+    private lateinit var adapter: DetailAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,13 +33,16 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         dBinding.lifecycleOwner = this
         dBinding.detail = this@DetailActivity
 
+        detailViewModel = ViewModelProvider(this, ViewModelFactory(UserRepository()))
+            .get(DetailViewModel::class.java)
+
         val str = intent.getStringExtra("userId")
         detailViewModel.loadData(str)
 
         initObservers()
     }
 
-    private fun initObservers(){
+    private fun initObservers() {
         detailViewModel.info.observe(this) {
             dBinding.userInfo = it
         }
@@ -57,7 +64,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onBackPressed() {
-        if(dBinding.resultView.visibility == View.GONE)
+        if (dBinding.resultView.visibility == View.GONE)
             dBinding.resultView.visibility = View.VISIBLE
         else
             super.onBackPressed()

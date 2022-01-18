@@ -7,11 +7,14 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.example.githubsearch.R
+import com.example.githubsearch.data.repository.UserRepository
 import com.example.githubsearch.databinding.ActivityMainBinding
 import com.example.githubsearch.model.User
+import com.example.githubsearch.ui.ViewModelFactory
 import com.example.githubsearch.ui.detail.DetailActivity
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -19,12 +22,15 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityMainBinding
-    private val mainViewModel: MainViewModel by viewModels()
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        mainViewModel = ViewModelProvider(this, ViewModelFactory(UserRepository()))
+            .get(MainViewModel::class.java)
         mBinding.mainVm = mainViewModel
         mBinding.lifecycleOwner = this@MainActivity
 

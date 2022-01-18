@@ -9,8 +9,7 @@ import com.example.githubsearch.model.User
 import kotlinx.coroutines.flow.Flow
 
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository = UserRepository(application)
+class MainViewModel(private val repository: UserRepository) : ViewModel() {
 
     private var _data = MutableLiveData<Flow<PagingData<User>>>()
     val data: LiveData<Flow<PagingData<User>>> = _data
