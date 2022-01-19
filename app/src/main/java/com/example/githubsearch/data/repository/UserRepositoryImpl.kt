@@ -1,7 +1,6 @@
 package com.example.githubsearch.data.repository
 
-import com.example.githubsearch.data.remote.RetrofitBuilder
-import com.example.githubsearch.data.remote.api.GithubService
+import com.example.githubsearch.data.service.GithubService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

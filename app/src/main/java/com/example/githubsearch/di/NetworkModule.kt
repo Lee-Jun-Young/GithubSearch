@@ -1,7 +1,7 @@
 package com.example.githubsearch.di
 
 import com.example.githubsearch.BuildConfig
-import com.example.githubsearch.data.remote.api.GithubService
+import com.example.githubsearch.data.service.GithubService
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

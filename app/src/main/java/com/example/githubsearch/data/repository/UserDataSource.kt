@@ -2,12 +2,11 @@ package com.example.githubsearch.data.repository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.githubsearch.data.remote.api.GithubService
+import com.example.githubsearch.data.service.GithubService
 import com.example.githubsearch.model.User
 import java.lang.Exception
-import javax.inject.Inject
 
-class UserDataSource (
+class UserDataSource(
     private val githubService: GithubService,
     private val userId: String,
     private val pageSize: Int

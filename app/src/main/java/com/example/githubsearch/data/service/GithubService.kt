@@ -1,4 +1,4 @@
-package com.example.githubsearch.data.remote.api
+package com.example.githubsearch.data.service
 
 import com.example.githubsearch.model.UserRepo
 import com.example.githubsearch.model.UserDetail

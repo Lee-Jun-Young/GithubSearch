@@ -2,7 +2,7 @@ package com.example.githubsearch.data.repository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.githubsearch.data.remote.api.GithubService
+import com.example.githubsearch.data.service.GithubService
 import com.example.githubsearch.model.UserRepo
 import java.lang.Exception
 import javax.inject.Inject
