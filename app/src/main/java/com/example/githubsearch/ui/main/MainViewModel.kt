@@ -7,9 +7,10 @@ import androidx.paging.*
 import com.example.githubsearch.data.repository.UserRepository
 import com.example.githubsearch.model.User
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 
-class MainViewModel(private val repository: UserRepository) : ViewModel() {
+class MainViewModel @Inject constructor(val repository: UserRepository) : ViewModel() {
 
     private var _data = MutableLiveData<Flow<PagingData<User>>>()
     val data: LiveData<Flow<PagingData<User>>> = _data

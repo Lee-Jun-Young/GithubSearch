@@ -10,8 +10,9 @@ import com.example.githubsearch.model.UserDetail
 import com.example.githubsearch.model.UserRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailViewModel(private val repository: UserRepository) : ViewModel() {
+class DetailViewModel @Inject constructor(private val repository: UserRepository) : ViewModel() {
 
     private val _info = MutableLiveData<UserDetail>()
     val info: LiveData<UserDetail> = _info

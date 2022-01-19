@@ -3,36 +3,38 @@ package com.example.githubsearch.ui.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import com.example.githubsearch.MyApplication
 import com.example.githubsearch.R
-import com.example.githubsearch.data.repository.UserRepository
-import com.example.githubsearch.data.repository.UserRepositoryImpl
 import com.example.githubsearch.databinding.ActivityMainBinding
 import com.example.githubsearch.model.User
-import com.example.githubsearch.model.UserRepo
-import com.example.githubsearch.ui.ViewModelFactory
 import com.example.githubsearch.ui.detail.DetailActivity
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityMainBinding
-    private lateinit var mainViewModel: MainViewModel
+
+    @Inject
+    lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        (application as MyApplication).appComponent.inject(this)
+
+        /*
         mainViewModel = ViewModelProvider(this, ViewModelFactory(UserRepositoryImpl()))
             .get(MainViewModel::class.java)
+        */
+
         mBinding.mainVm = mainViewModel
         mBinding.lifecycleOwner = this@MainActivity
 

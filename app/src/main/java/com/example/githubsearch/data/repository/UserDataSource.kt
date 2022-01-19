@@ -5,8 +5,9 @@ import androidx.paging.PagingState
 import com.example.githubsearch.data.remote.api.GithubService
 import com.example.githubsearch.model.User
 import java.lang.Exception
+import javax.inject.Inject
 
-class UserDataSource(
+class UserDataSource (
     private val githubService: GithubService,
     private val userId: String,
     private val pageSize: Int

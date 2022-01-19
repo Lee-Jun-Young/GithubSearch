@@ -1,30 +1,24 @@
 package com.example.githubsearch.ui.detail
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.githubsearch.BuildConfig
+import com.example.githubsearch.MyApplication
 import com.example.githubsearch.R
-import com.example.githubsearch.data.repository.UserRepository
-import com.example.githubsearch.data.repository.UserRepositoryImpl
 import com.example.githubsearch.databinding.ActivityDetailBinding
-import com.example.githubsearch.model.User
 import com.example.githubsearch.model.UserRepo
-import com.example.githubsearch.ui.ViewModelFactory
-import com.example.githubsearch.ui.main.MainAdapter
-import com.example.githubsearch.ui.main.MainViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class DetailActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var dBinding: ActivityDetailBinding
-    private lateinit var detailViewModel: DetailViewModel
+
+    @Inject
+    lateinit var detailViewModel: DetailViewModel
     private lateinit var adapter: DetailAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,9 +28,11 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         dBinding.lifecycleOwner = this
         dBinding.detail = this@DetailActivity
 
+        (application as MyApplication).appComponent.inject(this)
+        /*
         detailViewModel = ViewModelProvider(this, ViewModelFactory(UserRepositoryImpl()))
             .get(DetailViewModel::class.java)
-
+        */
         val str = intent.getStringExtra("userId")
         detailViewModel.loadData(str)
 
