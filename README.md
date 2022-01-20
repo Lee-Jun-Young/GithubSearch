@@ -12,9 +12,6 @@ Github API를 사용한 사용자 검색과 정보 확인 앱 <br>
 |:-------------------------:|:-------------------------:|:-------------------------:|
 |<img src = "https://user-images.githubusercontent.com/47595801/150273929-c5f29b26-cb55-4820-8653-f5d844953161.jpg" width="270" height="545">|<img src = "https://user-images.githubusercontent.com/47595801/150273949-7a05a387-6f64-475a-b186-c26b1d2997cb.jpg" width="270" height="545">|<img src = "https://user-images.githubusercontent.com/47595801/150273935-db6150c2-9469-455d-97cf-42df6eb6033f.jpg" width="270" height="545">|
 
-## Demo
-
-
-
+<br><br>
 ## Tech
 `Android` `Kotlin` `MVVM` `ViewModel` `LiveData` `Coroutine` `DataBinding` `RepositoryPattern` `Retrofit2` `OkHttp3` `Paging3` `Glide` `SwipeRefreshLayout` `Dagger2`
