@@ -29,10 +29,6 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         dBinding.detail = this@DetailActivity
 
         (application as MyApplication).appComponent.inject(this)
-        /*
-        detailViewModel = ViewModelProvider(this, ViewModelFactory(UserRepositoryImpl()))
-            .get(DetailViewModel::class.java)
-        */
         val str = intent.getStringExtra("userId")
         detailViewModel.loadData(str)
 

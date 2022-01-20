@@ -9,10 +9,10 @@ class UserRepositoryImpl @Inject constructor(private val githubService: GithubSe
     UserRepository {
 
     override fun getUserList(userId: String, pageSize: Int) =
-        UserDataSource(githubService, userId, pageSize)
+        UserPagingSource(githubService, userId, pageSize)
 
     override fun getRepoData(userId: String, pageSize: Int) =
-        UserRepoDataSource(githubService, sort = "updated", userId, pageSize)
+        UserRepoPagingSource(githubService, sort = "updated", userId, pageSize)
 
     override suspend fun getUserData(userId: String?) = withContext(Dispatchers.IO) {
         val response = githubService.searchByUserId(userId)

@@ -18,10 +18,9 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mBinding: ActivityMainBinding
-
     @Inject
     lateinit var mainViewModel: MainViewModel
+    private lateinit var mBinding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,16 +29,10 @@ class MainActivity : AppCompatActivity() {
 
         (application as MyApplication).appComponent.inject(this)
 
-        /*
-        mainViewModel = ViewModelProvider(this, ViewModelFactory(UserRepositoryImpl()))
-            .get(MainViewModel::class.java)
-        */
-
         mBinding.mainVm = mainViewModel
         mBinding.lifecycleOwner = this@MainActivity
 
         mBinding.refreshLayout.setOnRefreshListener {
-            //adapter.refresh()
             mBinding.refreshLayout.isRefreshing = false
         }
 
