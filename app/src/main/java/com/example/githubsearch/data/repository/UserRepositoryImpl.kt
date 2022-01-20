@@ -1,21 +1,22 @@
 package com.example.githubsearch.data.repository
 
+import com.example.githubsearch.data.remote.UserRemoteDataSource
 import com.example.githubsearch.data.service.GithubService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class UserRepositoryImpl @Inject constructor(private val githubService: GithubService) :
+class UserRepositoryImpl @Inject constructor(private val userRemoteDataSource: UserRemoteDataSource) :
     UserRepository {
 
     override fun getUserList(userId: String, pageSize: Int) =
-        UserPagingSource(githubService, userId, pageSize)
+        UserPagingSource(userRemoteDataSource, userId, pageSize)
 
     override fun getRepoData(userId: String, pageSize: Int) =
-        UserRepoPagingSource(githubService, sort = "updated", userId, pageSize)
+        UserRepoPagingSource(userRemoteDataSource, sort = "updated", userId, pageSize)
 
     override suspend fun getUserData(userId: String?) = withContext(Dispatchers.IO) {
-        val response = githubService.searchByUserId(userId)
+        val response = userRemoteDataSource.searchByUserId(userId)
         return@withContext if (response.isSuccessful) {
             val body = response.body()!!
             body
