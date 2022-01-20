@@ -7,7 +7,6 @@ import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubsearch.R
-import com.example.githubsearch.databinding.ActivityMainBinding
 import com.example.githubsearch.databinding.LoadStateItemBinding
 
 class UserLoadStateAdapter(private val retry: () -> Unit) :

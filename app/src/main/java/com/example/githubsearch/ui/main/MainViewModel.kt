@@ -1,9 +1,12 @@
 package com.example.githubsearch.ui.main
 
-import android.app.Application
-import android.util.Log
-import androidx.lifecycle.*
-import androidx.paging.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.paging.CombinedLoadStates
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.githubsearch.data.repository.UserRepository
 import com.example.githubsearch.model.User
 import kotlinx.coroutines.flow.Flow

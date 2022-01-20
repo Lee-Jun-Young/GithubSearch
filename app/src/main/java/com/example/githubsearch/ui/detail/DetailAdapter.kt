@@ -6,7 +6,6 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubsearch.databinding.ItemRvDetailBinding
-import com.example.githubsearch.model.User
 import com.example.githubsearch.model.UserRepo
 
 class DetailAdapter(
