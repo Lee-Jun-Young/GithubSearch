@@ -22,13 +22,15 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var adapter: DetailAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        (application as MyApplication).appComponent.inject(this)
+
         super.onCreate(savedInstanceState)
 
         dBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
         dBinding.lifecycleOwner = this
         dBinding.detail = this@DetailActivity
 
-        (application as MyApplication).appComponent.inject(this)
         val str = intent.getStringExtra("userId")
         detailViewModel.loadData(str)
 

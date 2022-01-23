@@ -23,11 +23,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        (application as MyApplication).appComponent.inject(this)
+
         super.onCreate(savedInstanceState)
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
-        (application as MyApplication).appComponent.inject(this)
 
         mBinding.mainVm = mainViewModel
         mBinding.lifecycleOwner = this@MainActivity
