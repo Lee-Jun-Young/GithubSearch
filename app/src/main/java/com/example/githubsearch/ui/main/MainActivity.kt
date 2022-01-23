@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.RecyclerView
 import com.example.githubsearch.MyApplication
 import com.example.githubsearch.R
 import com.example.githubsearch.databinding.ActivityMainBinding
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             mBinding.refreshLayout.isRefreshing = false
         }
 
+        initScrollListener()
         initObservers()
     }
 
@@ -46,6 +48,23 @@ class MainActivity : AppCompatActivity() {
                 .putExtra("userId", user.login)
                 .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
         )
+    }
+
+    private fun initScrollListener() {
+        var temp = 0
+        mBinding.mainRecyclerview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (temp == 1) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (dy != 0) mBinding.etSearchId.clearFocus()
+                }
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                temp = 1
+            }
+        })
     }
 
     private fun initObservers() {
