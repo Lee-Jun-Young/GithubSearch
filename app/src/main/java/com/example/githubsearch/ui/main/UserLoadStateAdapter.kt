@@ -33,7 +33,10 @@ class UserLoadStateAdapter(private val retry: () -> Unit) :
 
         fun bind(loadState: LoadState) {
             if (loadState is LoadState.Error) {
-                binding.errorMsg.text = loadState.error.localizedMessage
+                if (loadState.error.localizedMessage.isNullOrEmpty())
+                    binding.errorMsg.text = "오류가 발생했습니다.\n 잠시후 재시도 버튼을 눌러주십시오."
+                else
+                    binding.errorMsg.text = loadState.error.localizedMessage
             }
             binding.progressBar.isVisible = loadState is LoadState.Loading
             binding.btnRetry.isVisible = loadState is LoadState.Error
