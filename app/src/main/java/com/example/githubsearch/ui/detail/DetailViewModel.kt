@@ -4,9 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.githubsearch.data.repository.UserRepository
 import com.example.githubsearch.model.UserDetail
 import com.example.githubsearch.model.UserRepo
@@ -29,13 +28,8 @@ class DetailViewModel @Inject constructor(private val repository: UserRepository
             _info.postValue(detailData as UserDetail?)
         }
 
-        _repo.value = Pager(
-            PagingConfig(pageSize = 50)
-        ) {
-            repository.getRepoData(userId.toString(), 50)
-        }.flow
+        _repo.value = repository.getRepoData(userId.toString(), 50).cachedIn(viewModelScope)
 
     }
-
 
 }
