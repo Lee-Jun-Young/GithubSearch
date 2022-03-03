@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         mBinding.lifecycleOwner = this@MainActivity
 
         mBinding.refreshLayout.setOnRefreshListener {
+            mainViewModel.getUserId()
             mBinding.refreshLayout.isRefreshing = false
         }
 
@@ -70,7 +71,9 @@ class MainActivity : AppCompatActivity() {
     private fun initObservers() {
 
         mainViewModel.isBlank.observe(this) {
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            if (it)
+                Toast.makeText(this, getString(R.string.main_userId_null), Toast.LENGTH_SHORT)
+                    .show()
         }
 
         mainViewModel.data.observe(this) {
