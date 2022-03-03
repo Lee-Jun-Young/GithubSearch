@@ -15,11 +15,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class DetailActivity : AppCompatActivity(), View.OnClickListener {
-    private lateinit var dBinding: ActivityDetailBinding
 
     @Inject
     lateinit var detailViewModel: DetailViewModel
-    private lateinit var adapter: DetailAdapter
+    private lateinit var dBinding: ActivityDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -28,13 +27,17 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
 
         dBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
+
         dBinding.lifecycleOwner = this
         dBinding.detail = this@DetailActivity
 
+        initView()
+        initObservers()
+    }
+
+    private fun initView() {
         val str = intent.getStringExtra("userId")
         detailViewModel.loadData(str)
-
-        initObservers()
     }
 
     private fun initObservers() {
@@ -43,7 +46,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         detailViewModel.repo.observe(this) {
-            adapter = DetailAdapter(::itemOnClick)
+            val adapter = DetailAdapter(::itemOnClick)
             dBinding.detailRecyclerview.adapter = adapter
             lifecycleScope.launch {
                 it.collectLatest {

@@ -10,19 +10,19 @@ import com.example.githubsearch.model.UserRepo
 
 class DetailAdapter(
     private val onClick: (UserRepo) -> Unit
-) : PagingDataAdapter<UserRepo, DetailAdapter.MainViewHolder>(diffCallback) {
+) : PagingDataAdapter<UserRepo, DetailAdapter.DetailViewHolder>(diffCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailViewHolder {
         val binding =
             ItemRvDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MainViewHolder(binding, onClick)
+        return DetailViewHolder(binding, onClick)
     }
 
-    override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DetailViewHolder, position: Int) {
         holder.onBind(getItem(position)!!)
     }
 
-    inner class MainViewHolder(
+    inner class DetailViewHolder(
         private val binding: ItemRvDetailBinding,
         private val onClick: (UserRepo) -> Unit
     ) :

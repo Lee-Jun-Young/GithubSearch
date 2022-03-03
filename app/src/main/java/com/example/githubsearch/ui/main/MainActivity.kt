@@ -34,13 +34,16 @@ class MainActivity : AppCompatActivity() {
         mBinding.mainVm = mainViewModel
         mBinding.lifecycleOwner = this@MainActivity
 
+        initView()
+        initScrollListener()
+        initObservers()
+    }
+
+    private fun initView() {
         mBinding.refreshLayout.setOnRefreshListener {
             mainViewModel.getUserId()
             mBinding.refreshLayout.isRefreshing = false
         }
-
-        initScrollListener()
-        initObservers()
     }
 
     private fun itemOnClick(user: User) {
