@@ -1,2 +1,6 @@
 rootProject.name = "GithubSearch"
 include ':app'
+include ':core'
+include ':data'
+include ':domain'
+include ':network'

@@ -9,14 +9,14 @@
 
         <variable
             name="mainVm"
-            type="com.example.githubsearch.ui.main.MainViewModel" />
+            type="com.example.githubsearch.presentation.viewmodel.MainViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.main.MainActivity">
+        tools:context=".presentation.activity.MainActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"

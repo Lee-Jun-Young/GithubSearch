@@ -3,16 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.example.githubsearch.model.User"/>
-        <import type="kotlin.Unit"/>
+
+        <import type="com.example.domain.User" />
+
+        <import type="kotlin.Unit" />
 
         <variable
             name="user"
-            type="com.example.githubsearch.model.User" />
+            type="com.example.domain.User" />
 
         <variable
             name="onClick"
-            type="kotlin.jvm.functions.Function1&lt;User, Unit>"/>
+            type="kotlin.jvm.functions.Function1&lt;User, Unit>" />
     </data>
 
     <LinearLayout
@@ -23,11 +25,11 @@
         android:orientation="horizontal">
 
         <ImageView
+            bind_userImage="@{user.avatarUrl}"
             android:layout_width="@dimen/main_item_imageSize"
             android:layout_height="@dimen/main_item_imageSize"
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/main_item_imageMarginStart"
-            bind_userImage="@{user.avatarUrl}"
             android:src="@drawable/ic_github" />
 
         <TextView

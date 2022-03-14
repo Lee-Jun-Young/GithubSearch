@@ -1,8 +1,10 @@
 package com.example.githubsearch.di
 
 import android.content.Context
-import com.example.githubsearch.ui.detail.DetailActivity
-import com.example.githubsearch.ui.main.MainActivity
+import com.example.data.BindsModule
+import com.example.githubsearch.presentation.activity.DetailActivity
+import com.example.githubsearch.presentation.activity.MainActivity
+import com.example.network.NetworkModule
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton

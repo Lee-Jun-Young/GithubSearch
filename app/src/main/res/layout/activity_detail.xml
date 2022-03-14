@@ -7,7 +7,7 @@
 
         <variable
             name="detail"
-            type="com.example.githubsearch.ui.detail.DetailActivity" />
+            type="com.example.githubsearch.presentation.activity.DetailActivity" />
 
         <variable
             name="userInfo"
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.detail.DetailActivity">
+        tools:context=".presentation.activity.DetailActivity">
 
         <LinearLayout
             android:id="@+id/resultView"
