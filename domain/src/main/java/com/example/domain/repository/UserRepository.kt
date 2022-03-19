@@ -1,6 +1,8 @@
-package com.example.domain
+package com.example.domain.repository
 
 import androidx.paging.PagingData
+import com.example.domain.model.User
+import com.example.domain.model.UserRepo
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {

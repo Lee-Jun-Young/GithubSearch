@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.User
+import com.example.domain.model.User
 import com.example.githubsearch.databinding.ItemRvMainBinding
 
 class MainAdapter(

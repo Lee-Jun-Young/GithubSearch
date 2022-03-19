@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.example.core.BaseActivity
+import com.example.domain.model.UserRepo
 import com.example.githubsearch.BuildConfig
 import com.example.githubsearch.MyApplication
 import com.example.githubsearch.R
 import com.example.githubsearch.databinding.ActivityDetailBinding
-import com.example.githubsearch.model.UserRepo
 import com.example.githubsearch.presentation.adapter.DetailAdapter
 import com.example.githubsearch.presentation.viewmodel.DetailViewModel
 import kotlinx.coroutines.flow.collectLatest

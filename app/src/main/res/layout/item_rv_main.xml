@@ -4,13 +4,13 @@
 
     <data>
 
-        <import type="com.example.domain.User" />
+        <import type="com.example.domain.model.User" />
 
         <import type="kotlin.Unit" />
 
         <variable
             name="user"
-            type="com.example.domain.User" />
+            type="com.example.domain.model.User" />
 
         <variable
             name="onClick"

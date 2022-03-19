@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.domain.UserRepository
-import com.example.network.UserDetail
-import com.example.network.UserRepo
+import com.example.domain.model.UserDetail
+import com.example.domain.model.UserRepo
+import com.example.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject

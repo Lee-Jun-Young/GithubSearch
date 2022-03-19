@@ -11,7 +11,7 @@
 
         <variable
             name="userInfo"
-            type="com.example.githubsearch.model.UserDetail" />
+            type="com.example.domain.model.UserDetail" />
 
     </data>
 

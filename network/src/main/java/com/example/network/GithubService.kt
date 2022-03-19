@@ -12,12 +12,12 @@ interface GithubService {
         @Query("q") id: String,
         @Query("per_page") size: Int,
         @Query("page") page: Int
-    ): Response<UserResponse>
+    ): Response<UserResponseDto>
 
     @GET("/users/{user}")
     suspend fun searchByUserId(
         @Path("user") userId: String?
-    ): Response<UserDetail>
+    ): Response<UserDetailDto>
 
     @GET("/users/{user}/repos")
     suspend fun searchUserRepo(
@@ -25,5 +25,5 @@ interface GithubService {
         @Query("sort") sort: String,
         @Query("per_page") size: Int,
         @Query("page") page: Int
-    ): Response<List<UserRepo>>
+    ): Response<List<UserRepoDto>>
 }

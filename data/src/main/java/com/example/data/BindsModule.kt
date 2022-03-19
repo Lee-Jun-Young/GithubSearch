@@ -1,8 +1,10 @@
 package com.example.data
 
 
-import com.example.domain.UserRemoteDataSource
-import com.example.domain.UserRepository
+import com.example.data.datasource.UserRemoteDataSourceImpl
+import com.example.data.repository.UserRepositoryImpl
+import com.example.domain.datasource.UserRemoteDataSource
+import com.example.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
 import org.jetbrains.annotations.NotNull
@@ -10,11 +12,9 @@ import org.jetbrains.annotations.NotNull
 @Module
 abstract class BindsModule {
 
-    @NotNull
     @Binds
     abstract fun provideRepository(repositoryImpl: UserRepositoryImpl): UserRepository
 
-    @NotNull
     @Binds
     abstract fun provideUserDataSource(userRemoteDataSourceImpl: UserRemoteDataSourceImpl): UserRemoteDataSource
 

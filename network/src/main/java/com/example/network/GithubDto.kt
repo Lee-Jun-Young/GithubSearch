@@ -2,14 +2,14 @@ package com.example.network
 
 import com.google.gson.annotations.SerializedName
 
-data class User(
+data class UserDto(
     @SerializedName("login")
     val login: String,
     @SerializedName("avatar_url")
-    val avatarUrl: String
+    val avatarUrl: String?
 )
 
-data class UserDetail(
+data class UserDetailDto(
     @SerializedName("login")
     val login: String,
     @SerializedName("avatar_url")
@@ -18,7 +18,7 @@ data class UserDetail(
     val name: String?
 )
 
-data class UserRepo(
+data class UserRepoDto(
     @SerializedName("full_name")
     val full_name: String,
     @SerializedName("name")
@@ -29,9 +29,9 @@ data class UserRepo(
     val language: String?
 )
 
-data class UserResponse(
+data class UserResponseDto(
     @SerializedName("total_count")
     val totalCount: Int,
     @SerializedName("items")
-    val items: List<User>
+    val items: List<UserDto>
 )

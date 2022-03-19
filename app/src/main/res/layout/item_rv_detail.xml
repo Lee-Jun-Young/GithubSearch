@@ -4,13 +4,13 @@
 
     <data>
 
-        <import type="com.example.domain.UserRepo" />
+        <import type="com.example.domain.model.UserRepo" />
 
         <import type="kotlin.Unit" />
 
         <variable
             name="repo"
-            type="com.example.domain.UserRepo" />
+            type="com.example.domain.model.UserRepo" />
 
         <variable
             name="onClick"

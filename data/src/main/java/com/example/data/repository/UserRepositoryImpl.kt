@@ -1,12 +1,14 @@
-package com.example.data
+package com.example.data.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.example.domain.User
-import com.example.domain.UserRemoteDataSource
-import com.example.domain.UserRepo
-import com.example.domain.UserRepository
+import com.example.data.pagingsource.UserPagingSource
+import com.example.data.pagingsource.UserRepoPagingSource
+import com.example.domain.model.User
+import com.example.domain.datasource.UserRemoteDataSource
+import com.example.domain.model.UserRepo
+import com.example.domain.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -32,13 +34,7 @@ class UserRepositoryImpl @Inject constructor(private val userRemoteDataSource: U
     }
 
     override suspend fun getUserData(userId: String?) = withContext(Dispatchers.IO) {
-        val response = userRemoteDataSource.searchByUserId(userId)
-        return@withContext if (response.isSuccessful) {
-            val body = response.body()!!
-            body
-        } else {
-            return@withContext
-        }
+        return@withContext userRemoteDataSource.searchByUserId(userId)
     }
 
 }

@@ -1,9 +1,9 @@
-package com.example.data
+package com.example.data.pagingsource
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.domain.UserRemoteDataSource
-import com.example.domain.UserRepo
+import com.example.domain.datasource.UserRemoteDataSource
+import com.example.domain.model.UserRepo
 import javax.inject.Inject
 
 class UserRepoPagingSource @Inject constructor(
@@ -17,10 +17,9 @@ class UserRepoPagingSource @Inject constructor(
         return try {
             val nextPage = params.key ?: 1
             val response = userRemoteDataSource.searchUserRepo(userId, sort, pageSize, nextPage)
-            val body = response.body()
-            val isAvailable = body!!.size > pageSize * nextPage
+            val isAvailable = response!!.size > pageSize * nextPage
             LoadResult.Page(
-                data = body,
+                data = response,
                 prevKey = null,
                 nextKey = if (isAvailable) nextPage + 1 else null
             )

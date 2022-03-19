@@ -7,13 +7,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import com.example.core.BaseActivity
+import com.example.domain.model.User
 import com.example.githubsearch.MyApplication
 import com.example.githubsearch.R
 import com.example.githubsearch.databinding.ActivityMainBinding
 import com.example.githubsearch.presentation.adapter.MainAdapter
 import com.example.githubsearch.presentation.adapter.UserLoadStateAdapter
 import com.example.githubsearch.presentation.viewmodel.MainViewModel
-import com.example.network.User
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
