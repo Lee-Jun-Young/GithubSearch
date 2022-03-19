@@ -7,7 +7,6 @@ import com.example.domain.datasource.UserRemoteDataSource
 import com.example.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
-import org.jetbrains.annotations.NotNull
 
 @Module
 abstract class BindsModule {

@@ -1,6 +1,5 @@
 package com.example.domain.datasource
 
-import com.example.domain.model.User
 import com.example.domain.model.UserDetail
 import com.example.domain.model.UserRepo
 import com.example.domain.model.UserResponse

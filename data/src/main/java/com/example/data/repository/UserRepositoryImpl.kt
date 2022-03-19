@@ -5,8 +5,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.data.pagingsource.UserPagingSource
 import com.example.data.pagingsource.UserRepoPagingSource
-import com.example.domain.model.User
 import com.example.domain.datasource.UserRemoteDataSource
+import com.example.domain.model.User
 import com.example.domain.model.UserRepo
 import com.example.domain.repository.UserRepository
 import kotlinx.coroutines.Dispatchers

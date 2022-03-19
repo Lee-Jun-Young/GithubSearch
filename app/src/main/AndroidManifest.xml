@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubSearch">
-        <activity android:name=".presentation.activity.DetailActivity"></activity>
+        <activity android:name=".presentation.activity.DetailActivity" />
         <activity
             android:name=".presentation.activity.MainActivity"
             android:exported="true">
