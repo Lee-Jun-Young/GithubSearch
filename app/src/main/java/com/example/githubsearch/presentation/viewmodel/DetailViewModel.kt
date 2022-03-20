@@ -9,11 +9,16 @@ import androidx.paging.cachedIn
 import com.example.domain.model.UserDetail
 import com.example.domain.model.UserRepo
 import com.example.domain.repository.UserRepository
+import com.example.domain.usecase.SearchByUserIdUseCase
+import com.example.domain.usecase.SearchUserRepoUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class DetailViewModel @Inject constructor(private val repository: UserRepository) : ViewModel() {
+class DetailViewModel @Inject constructor(
+    private val getUserDataUseCase: SearchByUserIdUseCase,
+    private val getRepoDataUseCase: SearchUserRepoUseCase
+) : ViewModel() {
 
     private val _info = MutableLiveData<UserDetail>()
     val info: LiveData<UserDetail> = _info
@@ -23,12 +28,12 @@ class DetailViewModel @Inject constructor(private val repository: UserRepository
 
     fun loadData(userId: String?) {
         viewModelScope.launch {
-            val detailData = repository.getUserData(userId)
+            val detailData = getUserDataUseCase(userId.toString())
 
             _info.postValue(detailData as UserDetail?)
         }
 
-        _repo.value = repository.getRepoData(userId.toString(), 50).cachedIn(viewModelScope)
+        _repo.value = getRepoDataUseCase(userId.toString())
 
     }
 
