@@ -9,10 +9,12 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.domain.model.User
 import com.example.domain.repository.UserRepository
+import com.example.domain.usecase.SearchUserUseCase
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(private val repository: UserRepository) : ViewModel() {
+class MainViewModel @Inject constructor(private val getUserListUseCase: SearchUserUseCase) :
+    ViewModel() {
 
     private var _data = MutableLiveData<Flow<PagingData<User>>>()
     val data: LiveData<Flow<PagingData<User>>> = _data
@@ -29,7 +31,7 @@ class MainViewModel @Inject constructor(private val repository: UserRepository) 
         val userId = searchId.value
         _isBlank.value = userId.isNullOrBlank()
 
-        _data.value = repository.getUserList(userId.toString(), 50).cachedIn(viewModelScope)
+        _data.value = getUserListUseCase(userId.toString())
     }
 
     fun setUsersLoadState(loadState: CombinedLoadStates?) {
