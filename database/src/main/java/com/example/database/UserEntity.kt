@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
-data class UserBookMarkEntity(
+@Entity(tableName = "user_data")
+data class UserEntity(
     @PrimaryKey
     @ColumnInfo(name = "login")
     val login: String,
