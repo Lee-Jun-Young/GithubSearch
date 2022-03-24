@@ -65,20 +65,19 @@
                     bind_userImage="@{userInfo.avatarUrl}"
                     android:layout_width="@dimen/detail_profile_imageSize"
                     android:layout_height="@dimen/detail_profile_imageSize"
-                    android:layout_marginStart="@dimen/detail_profile_imageMarginStart"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_marginStart="@dimen/detail_profile_imageMarginStart" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/detail_profile_textMargin"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_login"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{userInfo.login}"
                         android:textColor="@color/black"
@@ -91,6 +90,14 @@
                         android:text="@{userInfo.name}" />
 
                 </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/cb_like"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="25dp"
+                    android:background="@drawable/custom_checkbox"
+                    android:button="@null" />
 
             </LinearLayout>
 
