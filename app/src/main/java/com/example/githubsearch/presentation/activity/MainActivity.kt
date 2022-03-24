@@ -1,7 +1,11 @@
 package com.example.githubsearch.presentation.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
@@ -20,7 +24,7 @@ import javax.inject.Inject
 
 class MainActivity : BaseActivity<ActivityMainBinding>({
     ActivityMainBinding.inflate(it)
-}) {
+}), View.OnClickListener {
 
     @Inject
     lateinit var mainViewModel: MainViewModel
@@ -32,6 +36,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
         super.onCreate(savedInstanceState)
 
         binding.mainVm = mainViewModel
+        binding.main = this@MainActivity
         binding.lifecycleOwner = this@MainActivity
 
         initView()
@@ -97,6 +102,26 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
             }
         }
 
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.iv_list -> {
+                if (!binding.drawableLayout.isDrawerOpen(Gravity.RIGHT)) {
+                    if (binding.etSearchId.isFocused) {
+                        val manager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                        manager.hideSoftInputFromWindow(
+                            currentFocus!!.windowToken,
+                            InputMethodManager.HIDE_NOT_ALWAYS
+                        )
+                    }
+                    binding.drawableLayout.openDrawer(Gravity.RIGHT)
+                } else {
+                    binding.drawableLayout.closeDrawer(Gravity.RIGHT)
+                }
+            }
+
+        }
     }
 
 }

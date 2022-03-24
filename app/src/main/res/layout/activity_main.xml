@@ -8,6 +8,11 @@
         <import type="android.view.View" />
 
         <variable
+            name="main"
+            type="com.example.githubsearch.presentation.activity.MainActivity" />
+
+
+        <variable
             name="mainVm"
             type="com.example.githubsearch.presentation.viewmodel.MainViewModel" />
     </data>
@@ -27,9 +32,10 @@
             app:contentInsetStart="0dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginEnd="12dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -46,6 +52,15 @@
                     android:textColor="@color/white"
                     android:textStyle="bold" />
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_list"
+                android:layout_width="@dimen/main_toolbar_imageSize"
+                android:layout_height="@dimen/main_toolbar_imageSize"
+                android:layout_gravity="right"
+                android:onClick="@{main::onClick}"
+                android:padding="12dp"
+                android:src="@drawable/list" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -66,23 +81,38 @@
             android:text="@={mainVm.searchId}"
             android:textSize="@dimen/main_editText_size" />
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/refreshLayout"
+        <androidx.drawerlayout.widget.DrawerLayout
+            android:id="@+id/drawableLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/main_swipeLayout_marginStartEnd"
-            android:layout_marginEnd="@dimen/main_swipeLayout_marginStartEnd"
+            android:layout_marginTop="10dp"
             android:visibility="@{mainVm.isEmpty ? View.GONE : View.VISIBLE}">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/main_recyclerview"
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/refreshLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/main_recyclerview_marginTop"
-                android:overScrollMode="never"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/main_swipeLayout_marginStartEnd"
+                android:layout_marginEnd="@dimen/main_swipeLayout_marginStartEnd">
 
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/main_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/main_recyclerview_marginTop"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:background="@color/white"
+                android:text="DRAW" />
+
+        </androidx.drawerlayout.widget.DrawerLayout>
 
         <LinearLayout
             android:id="@+id/emptyView"
@@ -90,8 +120,6 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             android:visibility="@{mainVm.isEmpty ? View.VISIBLE : View.GONE}">
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText">
 
             <LinearLayout
                 android:layout_width="match_parent"
