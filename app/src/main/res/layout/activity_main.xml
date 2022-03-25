@@ -105,12 +105,14 @@
 
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-            <TextView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/favorite_recyclerview"
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
                 android:background="@color/white"
-                android:text="DRAW" />
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </androidx.drawerlayout.widget.DrawerLayout>
 

@@ -16,6 +16,7 @@ import com.example.domain.model.User
 import com.example.githubsearch.MyApplication
 import com.example.githubsearch.R
 import com.example.githubsearch.databinding.ActivityMainBinding
+import com.example.githubsearch.presentation.adapter.FavoriteAdapter
 import com.example.githubsearch.presentation.adapter.MainAdapter
 import com.example.githubsearch.presentation.adapter.UserLoadStateAdapter
 import com.example.githubsearch.presentation.viewmodel.MainViewModel
@@ -39,7 +40,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
         binding.mainVm = mainViewModel
         binding.main = this@MainActivity
         binding.lifecycleOwner = this@MainActivity
-        mainViewModel.getFavorites()
 
         initView()
         initScrollListener()
@@ -52,11 +52,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
             binding.refreshLayout.isRefreshing = false
         }
         mainViewModel.favorites.observe(this, {
-            Log.d("test!!", it.toString())
+            Log.d("test!!!", it.toString())
         })
     }
 
     private fun itemOnClick(user: User) {
+        if (binding.drawableLayout.isDrawerOpen(Gravity.RIGHT)) {
+            binding.drawableLayout.closeDrawer(Gravity.RIGHT)
+        }
         startActivity(
             Intent(this, DetailActivity::class.java)
                 .putExtra("userId", user.login)
@@ -107,6 +110,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
             }
         }
 
+        mainViewModel.favorites.observe(this, {
+            Log.d("test!!", it.toString())
+            val adapter = FavoriteAdapter(::itemOnClick)
+            binding.favoriteRecyclerview.adapter = adapter
+            adapter.submitList(it)
+        })
+
     }
 
     override fun onClick(v: View?) {
@@ -120,6 +130,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
                             InputMethodManager.HIDE_NOT_ALWAYS
                         )
                     }
+                    mainViewModel.getFavorites()
                     binding.drawableLayout.openDrawer(Gravity.RIGHT)
                 } else {
                     binding.drawableLayout.closeDrawer(Gravity.RIGHT)
