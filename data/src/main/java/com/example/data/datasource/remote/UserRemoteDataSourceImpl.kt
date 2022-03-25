@@ -1,9 +1,9 @@
-package com.example.data.datasource
+package com.example.data.datasource.remote
 
 import com.example.data.mapper.toUserDetail
 import com.example.data.mapper.toUserRepo
 import com.example.data.mapper.toUserResponse
-import com.example.domain.datasource.UserRemoteDataSource
+import com.example.domain.datasource.remote.UserRemoteDataSource
 import com.example.domain.model.UserDetail
 import com.example.domain.model.UserRepo
 import com.example.domain.model.UserResponse

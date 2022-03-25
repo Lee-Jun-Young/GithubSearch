@@ -13,4 +13,10 @@ interface UserRepository {
 
     suspend fun getUserData(userId: String?): Any
 
+    suspend fun getFavorites(): List<User>
+
+    fun addFavorite(user: User)
+
+    fun deleteFavorite(userId: String)
+
 }

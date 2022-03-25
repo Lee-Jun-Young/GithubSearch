@@ -1,9 +1,13 @@
 package com.example.githubsearch.presentation.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.example.core.BaseActivity
+import com.example.domain.model.User
+import com.example.domain.model.UserDetail
 import com.example.domain.model.UserRepo
 import com.example.githubsearch.BuildConfig
 import com.example.githubsearch.MyApplication
@@ -34,6 +38,21 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>({ ActivityDetailBindi
         initObservers()
     }
 
+    override fun onBackPressed() {
+        if (binding.resultView.visibility == View.GONE)
+            binding.resultView.visibility = View.VISIBLE
+        else
+            super.onBackPressed()
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.iv_moveBack -> {
+                finish()
+            }
+        }
+    }
+
     private fun initView() {
         val str = intent.getStringExtra("userId")
         detailViewModel.loadData(str)
@@ -60,18 +79,12 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>({ ActivityDetailBindi
         binding.webView.loadUrl(BuildConfig.WEBVIEW_BASE_URL + userRepo.full_name)
     }
 
-    override fun onBackPressed() {
-        if (binding.resultView.visibility == View.GONE)
-            binding.resultView.visibility = View.VISIBLE
-        else
-            super.onBackPressed()
-    }
-
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.iv_moveBack -> {
-                finish()
-            }
+    fun isBookMarkClicked(userDetail: UserDetail) {
+        val info = User(userDetail.login, userDetail.avatarUrl)
+        if (binding.cbLike.isChecked) {
+            detailViewModel.addBookMark(info)
+        } else {
+            detailViewModel.deleteBookMark(info.login)
         }
     }
 

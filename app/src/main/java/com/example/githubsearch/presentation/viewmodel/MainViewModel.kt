@@ -9,11 +9,17 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.domain.model.User
 import com.example.domain.repository.UserRepository
+import com.example.domain.usecase.GetFavoritesUseCase
 import com.example.domain.usecase.SearchUserUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(private val getUserListUseCase: SearchUserUseCase) :
+class MainViewModel @Inject constructor(
+    private val getUserListUseCase: SearchUserUseCase,
+    private val getFavoritesUseCase: GetFavoritesUseCase
+) :
     ViewModel() {
 
     private var _data = MutableLiveData<Flow<PagingData<User>>>()
@@ -24,6 +30,9 @@ class MainViewModel @Inject constructor(private val getUserListUseCase: SearchUs
 
     private var _isBlank = MutableLiveData<Boolean>()
     var isBlank: LiveData<Boolean> = _isBlank
+
+    private var _favorites = MutableLiveData<List<User>>()
+    var favorites: LiveData<List<User>> = _favorites
 
     val searchId = MutableLiveData<String>()
 
@@ -37,6 +46,12 @@ class MainViewModel @Inject constructor(private val getUserListUseCase: SearchUs
     fun setUsersLoadState(loadState: CombinedLoadStates?) {
         val state = loadState?.refresh
         _isEmpty.value = state == null
+    }
+
+    fun getFavorites() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _favorites.postValue(getFavoritesUseCase.invoke())
+        }
     }
 
 }

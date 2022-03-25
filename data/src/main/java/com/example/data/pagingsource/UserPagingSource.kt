@@ -2,7 +2,7 @@ package com.example.data.pagingsource
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.domain.datasource.UserRemoteDataSource
+import com.example.domain.datasource.remote.UserRemoteDataSource
 import com.example.domain.model.User
 import javax.inject.Inject
 

@@ -3,6 +3,7 @@ package com.example.githubsearch.presentation.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -38,6 +39,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
         binding.mainVm = mainViewModel
         binding.main = this@MainActivity
         binding.lifecycleOwner = this@MainActivity
+        mainViewModel.getFavorites()
 
         initView()
         initScrollListener()
@@ -49,6 +51,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
             mainViewModel.getUserId()
             binding.refreshLayout.isRefreshing = false
         }
+        mainViewModel.favorites.observe(this, {
+            Log.d("test!!", it.toString())
+        })
     }
 
     private fun itemOnClick(user: User) {

@@ -1,4 +1,4 @@
-package com.example.domain.datasource
+package com.example.domain.datasource.remote
 
 import com.example.domain.model.UserDetail
 import com.example.domain.model.UserRepo

@@ -97,7 +97,8 @@
                     android:layout_height="36dp"
                     android:layout_marginEnd="25dp"
                     android:background="@drawable/custom_checkbox"
-                    android:button="@null" />
+                    android:button="@null"
+                    android:onClick="@{() -> detail.isBookMarkClicked(userInfo)}" />
 
             </LinearLayout>
 
