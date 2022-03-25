@@ -54,4 +54,8 @@ class UserRepositoryImpl @Inject constructor(
         favoriteLocalDataSource.deleteFavorite(userId)
     }
 
+    override fun isCheckedFavorite(userId: String): Boolean {
+        return favoriteLocalDataSource.isCheckFavorite(userId)
+    }
+
 }

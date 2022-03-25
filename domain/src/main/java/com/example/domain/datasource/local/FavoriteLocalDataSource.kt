@@ -9,4 +9,6 @@ interface FavoriteLocalDataSource {
     fun addFavorite(user: User)
 
     fun deleteFavorite(userId: String)
+
+    fun isCheckFavorite(userId: String): Boolean
 }

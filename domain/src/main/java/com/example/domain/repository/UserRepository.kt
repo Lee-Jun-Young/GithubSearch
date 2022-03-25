@@ -19,4 +19,6 @@ interface UserRepository {
 
     fun deleteFavorite(userId: String)
 
+    fun isCheckedFavorite(userId: String): Boolean
+
 }

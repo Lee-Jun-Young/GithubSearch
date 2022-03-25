@@ -32,6 +32,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>({ ActivityDetailBindi
         super.onCreate(savedInstanceState)
 
         binding.lifecycleOwner = this
+        binding.detailVm = detailViewModel
         binding.detail = this@DetailActivity
 
         initView()
@@ -56,6 +57,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>({ ActivityDetailBindi
     private fun initView() {
         val str = intent.getStringExtra("userId")
         detailViewModel.loadData(str)
+        str?.let { detailViewModel.isBookMarked(it) }
     }
 
     private fun initObservers() {

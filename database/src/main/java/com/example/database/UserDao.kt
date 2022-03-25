@@ -16,4 +16,7 @@ interface UserDao {
 
     @Query("DELETE FROM user_data WHERE login = :login")
     fun deleteData(login: String)
+
+    @Query("SELECT * FROM user_data WHERE login =:login")
+    fun isChecked(login: String) : List<UserEntity>
 }

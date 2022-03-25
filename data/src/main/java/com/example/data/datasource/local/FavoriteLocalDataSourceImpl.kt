@@ -22,4 +22,9 @@ class FavoriteLocalDataSourceImpl @Inject constructor(private val userDao: UserD
     override fun deleteFavorite(userId: String) {
         userDao.deleteData(userId)
     }
+
+    override fun isCheckFavorite(userId: String): Boolean {
+        return userDao.isChecked(userId).isNotEmpty()
+    }
+
 }
