@@ -131,6 +131,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
                         )
                     }
                     mainViewModel.getFavorites()
+                    binding.etSearchId.clearFocus()
                     binding.drawableLayout.openDrawer(Gravity.RIGHT)
                 } else {
                     binding.drawableLayout.closeDrawer(Gravity.RIGHT)
