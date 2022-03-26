@@ -51,6 +51,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
             mainViewModel.getUserId()
             binding.refreshLayout.isRefreshing = false
         }
+
+        binding.etSearchId.onFocusChangeListener =
+            View.OnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    if (binding.drawableLayout.isDrawerOpen(Gravity.RIGHT)) {
+                        binding.drawableLayout.closeDrawer(Gravity.RIGHT)
+                    }
+                }
+            }
     }
 
     private fun itemOnClick(user: User) {
@@ -82,7 +91,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
     }
 
     private fun initObservers() {
-
         mainViewModel.isBlank.observe(this) {
             if (it)
                 Toast.makeText(this, getString(R.string.main_userId_null), Toast.LENGTH_SHORT)
@@ -108,20 +116,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
         }
 
         mainViewModel.favorites.observe(this, {
-            Log.d("test!!", it.toString())
             val adapter = FavoriteAdapter(::itemOnClick)
             binding.favoriteRecyclerview.adapter = adapter
             adapter.submitList(it)
         })
-
-        binding.etSearchId.onFocusChangeListener =
-            View.OnFocusChangeListener { _, hasFocus ->
-                if (hasFocus) {
-                    if (binding.drawableLayout.isDrawerOpen(Gravity.RIGHT)) {
-                        binding.drawableLayout.closeDrawer(Gravity.RIGHT)
-                    }
-                }
-            }
     }
 
     override fun onClick(v: View?) {
