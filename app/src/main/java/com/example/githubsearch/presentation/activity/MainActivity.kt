@@ -51,9 +51,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
             mainViewModel.getUserId()
             binding.refreshLayout.isRefreshing = false
         }
-        mainViewModel.favorites.observe(this, {
-            Log.d("test!!!", it.toString())
-        })
     }
 
     private fun itemOnClick(user: User) {
@@ -117,6 +114,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
             adapter.submitList(it)
         })
 
+        binding.etSearchId.onFocusChangeListener =
+            View.OnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    if (binding.drawableLayout.isDrawerOpen(Gravity.RIGHT)) {
+                        binding.drawableLayout.closeDrawer(Gravity.RIGHT)
+                    }
+                }
+            }
     }
 
     override fun onClick(v: View?) {
