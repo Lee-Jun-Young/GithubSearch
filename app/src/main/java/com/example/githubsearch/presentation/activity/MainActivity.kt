@@ -115,10 +115,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
             }
         }
 
-        mainViewModel.isEmptyBookMark.observe(this, {
-            Log.d("test!!", it.toString())
-        })
-
         mainViewModel.favorites.observe(this, {
             val adapter = FavoriteAdapter(::itemOnClick)
             binding.favoriteRecyclerview.adapter = adapter
