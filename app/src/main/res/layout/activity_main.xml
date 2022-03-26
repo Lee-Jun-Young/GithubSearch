@@ -11,7 +11,6 @@
             name="main"
             type="com.example.githubsearch.presentation.activity.MainActivity" />
 
-
         <variable
             name="mainVm"
             type="com.example.githubsearch.presentation.viewmodel.MainViewModel" />
@@ -85,25 +84,62 @@
             android:id="@+id/drawableLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:visibility="@{mainVm.isEmpty ? View.GONE : View.VISIBLE}">
+            android:layout_marginTop="10dp">
 
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/refreshLayout"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/main_swipeLayout_marginStartEnd"
-                android:layout_marginEnd="@dimen/main_swipeLayout_marginStartEnd">
+                android:layout_height="match_parent">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/main_recyclerview"
+                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                    android:id="@+id/refreshLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/main_recyclerview_marginTop"
-                    android:overScrollMode="never"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/main_swipeLayout_marginStartEnd"
+                    android:layout_marginEnd="@dimen/main_swipeLayout_marginStartEnd"
+                    android:visibility="@{mainVm.isEmpty ? View.GONE : View.VISIBLE}">
 
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/main_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/main_recyclerview_marginTop"
+                        android:overScrollMode="never"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+                <LinearLayout
+                    android:id="@+id/emptyView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:visibility="@{mainVm.isEmpty ? View.VISIBLE : View.GONE}">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/main_empty_imageSize"
+                            android:layout_height="@dimen/main_empty_imageSize"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_empty_github" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/main_empty_textMarginTop"
+                            android:gravity="center"
+                            android:text="@string/main_empty_text"
+                            android:textColor="@color/black" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </FrameLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/favorite_recyclerview"
@@ -115,37 +151,6 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </androidx.drawerlayout.widget.DrawerLayout>
-
-        <LinearLayout
-            android:id="@+id/emptyView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:visibility="@{mainVm.isEmpty ? View.VISIBLE : View.GONE}">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="@dimen/main_empty_imageSize"
-                    android:layout_height="@dimen/main_empty_imageSize"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_empty_github" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/main_empty_textMarginTop"
-                    android:gravity="center"
-                    android:text="@string/main_empty_text"
-                    android:textColor="@color/black" />
-
-            </LinearLayout>
-
-        </LinearLayout>
 
     </LinearLayout>
 </layout>
