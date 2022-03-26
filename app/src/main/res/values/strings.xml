@@ -8,6 +8,7 @@
 
     <!-- Main EmptyView -->
     <string name="main_empty_text">검색결과가 없습니다.\n 다른 ID를 입력해주세요.</string>
+    <string name="main_bookMark_text">즐겨찾기된 계정이 없습니다.\n</string>
 
     <!-- Detail -->
     <string name="detail_repo_Text">Repositories</string>

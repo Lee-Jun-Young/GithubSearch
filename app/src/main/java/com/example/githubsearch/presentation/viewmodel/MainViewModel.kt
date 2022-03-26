@@ -31,6 +31,9 @@ class MainViewModel @Inject constructor(
     private var _isBlank = MutableLiveData<Boolean>()
     var isBlank: LiveData<Boolean> = _isBlank
 
+    private var _isEmptyBookMark = MutableLiveData<Boolean>()
+    val isEmptyBookMark: LiveData<Boolean> = _isEmptyBookMark
+
     private var _favorites = MutableLiveData<List<User>>()
     var favorites: LiveData<List<User>> = _favorites
 
@@ -50,7 +53,10 @@ class MainViewModel @Inject constructor(
 
     fun getFavorites() {
         viewModelScope.launch(Dispatchers.IO) {
-            _favorites.postValue(getFavoritesUseCase.invoke())
+            val result = getFavoritesUseCase()
+            _favorites.postValue(result)
+
+            _isEmptyBookMark.postValue(result.isEmpty())
         }
     }
 
