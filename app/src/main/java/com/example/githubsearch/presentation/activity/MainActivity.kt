@@ -54,23 +54,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
 
         binding.etSearchId.onFocusChangeListener =
             View.OnFocusChangeListener { _, hasFocus ->
-                if (hasFocus) {
-                    if (binding.drawableLayout.isDrawerOpen(Gravity.RIGHT)) {
-                        binding.drawableLayout.closeDrawer(Gravity.RIGHT)
-                    }
-                }
+                if (hasFocus) binding.drawableLayout.closeDrawer(Gravity.RIGHT)
             }
     }
 
     private fun itemOnClick(user: User) {
-        if (binding.drawableLayout.isDrawerOpen(Gravity.RIGHT)) {
-            binding.drawableLayout.closeDrawer(Gravity.RIGHT)
-        }
         startActivity(
             Intent(this, DetailActivity::class.java)
                 .putExtra("userId", user.login)
                 .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
         )
+        binding.drawableLayout.closeDrawer(Gravity.RIGHT)
     }
 
     private fun initScrollListener() {
@@ -140,7 +134,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
                     binding.drawableLayout.closeDrawer(Gravity.RIGHT)
                 }
             }
-
         }
     }
 
