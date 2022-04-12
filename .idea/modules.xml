@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GithubSearch.iml" filepath="$PROJECT_DIR$/.idea/modules/GithubSearch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/GithubSearch.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/GithubSearch.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/GithubSearch.core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/GithubSearch.core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/data/GithubSearch.data.iml" filepath="$PROJECT_DIR$/.idea/modules/data/GithubSearch.data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/database/GithubSearch.database.iml" filepath="$PROJECT_DIR$/.idea/modules/database/GithubSearch.database.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/GithubSearch.domain.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/GithubSearch.domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/network/GithubSearch.network.iml" filepath="$PROJECT_DIR$/.idea/modules/network/GithubSearch.network.iml" />
+    </modules>
+  </component>
+</project>

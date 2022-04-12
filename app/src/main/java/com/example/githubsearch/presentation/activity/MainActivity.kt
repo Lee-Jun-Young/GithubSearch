@@ -109,11 +109,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
             }
         }
 
-        mainViewModel.favorites.observe(this, {
+        mainViewModel.favorites.observe(this) {
             val adapter = FavoriteAdapter(::itemOnClick)
             binding.favoriteRecyclerview.adapter = adapter
             adapter.submitList(it)
-        })
+        }
     }
 
     override fun onClick(v: View?) {
