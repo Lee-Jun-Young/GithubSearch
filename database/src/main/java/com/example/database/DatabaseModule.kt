@@ -1,17 +1,22 @@
 package com.example.database
 
 import android.content.Context
+import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class DatabaseModule {
+object DatabaseModule {
+
+    @Singleton
+    @Provides
+    fun provideAppDatabase(context: Context): AppDatabase = Room
+        .databaseBuilder(context, AppDatabase::class.java, "user_data")
+        .build()
 
     @Provides
     @Singleton
-    fun provideUserDao(context: Context): UserDao {
-        return AppDatabase.getDatabase(context)!!.userDao()
-    }
+    fun provideUserDao(appDatabase: AppDatabase): UserDao = appDatabase.userDao()
 
 }
