@@ -19,7 +19,10 @@ import com.example.githubsearch.databinding.ActivityMainBinding
 import com.example.githubsearch.presentation.adapter.FavoriteAdapter
 import com.example.githubsearch.presentation.adapter.MainAdapter
 import com.example.githubsearch.presentation.adapter.UserLoadStateAdapter
+import com.example.githubsearch.presentation.intent.MainIntent
+import com.example.githubsearch.presentation.state.MainState
 import com.example.githubsearch.presentation.viewmodel.MainViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -48,7 +51,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
 
     private fun initView() {
         binding.refreshLayout.setOnRefreshListener {
-            mainViewModel.getUserId()
+            lifecycleScope.launch {
+                mainViewModel.userIntent.send(MainIntent.SearchUser)
+            }
             binding.refreshLayout.isRefreshing = false
         }
 
@@ -85,35 +90,45 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
     }
 
     private fun initObservers() {
-        mainViewModel.isBlank.observe(this) {
-            if (it)
-                Toast.makeText(this, getString(R.string.main_userId_null), Toast.LENGTH_SHORT)
-                    .show()
-        }
+        lifecycleScope.launch {
+            mainViewModel.state.collect {
+                when (it) {
+                    is MainState.SearchUser -> {
+                        val adapter = MainAdapter(::itemOnClick).apply {
+                            addLoadStateListener { state ->
+                                mainViewModel.setUsersLoadState(
+                                    if (state.refresh is LoadState.NotLoading && itemCount == 0) null else state
+                                )
+                            }
+                            binding.mainRecyclerview.adapter =
+                                withLoadStateFooter(UserLoadStateAdapter(::retry))
+                        }
 
-        mainViewModel.data.observe(this) {
-            val adapter = MainAdapter(::itemOnClick).apply {
-                addLoadStateListener { state ->
-                    mainViewModel.setUsersLoadState(
-                        if (state.refresh is LoadState.NotLoading && itemCount == 0) null else state
-                    )
+                        it.searchUser.collectLatest { data ->
+                            adapter.submitData(data)
+                        }
+                    }
+
+                    is MainState.BookMarkUser -> {
+                        val adapter = FavoriteAdapter(::itemOnClick)
+                        binding.favoriteRecyclerview.adapter = adapter
+                        adapter.submitList(it.bookmarkUser)
+                    }
+
+                    is MainState.IsBlank -> {
+                        if (it.isBlank) {
+                            Toast.makeText(
+                                this@MainActivity,
+                                getString(R.string.main_userId_null),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+
                 }
-                binding.mainRecyclerview.adapter =
-                    withLoadStateFooter(UserLoadStateAdapter(::retry))
-            }
-
-            lifecycleScope.launch {
-                it.collectLatest {
-                    adapter.submitData(it)
-                }
             }
         }
 
-        mainViewModel.favorites.observe(this) {
-            val adapter = FavoriteAdapter(::itemOnClick)
-            binding.favoriteRecyclerview.adapter = adapter
-            adapter.submitList(it)
-        }
     }
 
     override fun onClick(v: View?) {
@@ -127,7 +142,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
                             InputMethodManager.HIDE_NOT_ALWAYS
                         )
                     }
-                    mainViewModel.getFavorites()
+                    lifecycleScope.launch {
+                        mainViewModel.userIntent.send(MainIntent.BookMarkUser)
+                    }
                     binding.etSearchId.clearFocus()
                     binding.drawableLayout.openDrawer(Gravity.RIGHT)
                 } else {
