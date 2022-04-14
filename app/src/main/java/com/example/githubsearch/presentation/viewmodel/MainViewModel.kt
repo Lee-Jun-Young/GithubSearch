@@ -41,9 +41,11 @@ class MainViewModel @Inject constructor(
 
     fun getUserId() {
         val userId = searchId.value
-        _isBlank.value = userId.isNullOrBlank()
 
-        _data.value = getUserListUseCase(userId.toString())
+        if(userId.isNullOrBlank())
+            _isBlank.value = false
+        else
+            _data.value = getUserListUseCase(userId.toString())
     }
 
     fun setUsersLoadState(loadState: CombinedLoadStates?) {
