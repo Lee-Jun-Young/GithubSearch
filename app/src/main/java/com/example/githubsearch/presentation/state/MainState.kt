@@ -7,9 +7,10 @@ import kotlinx.coroutines.flow.Flow
 sealed class MainState {
 
     object Idle : MainState()
-    object Loading : MainState()
+    class IsBlank(val isBlank: Boolean) : MainState()
+    class IsEmpty(val isEmpty: Boolean) : MainState()
+    class IsBookMarkEmpty(val isBookMarkEmpty: Boolean) : MainState()
     data class SearchUser(val searchUser: Flow<PagingData<User>>) : MainState()
     data class BookMarkUser(val bookmarkUser: List<User>) : MainState()
-    class IsBlank(val isBlank: Boolean) : MainState()
 
 }

@@ -1,16 +1,13 @@
 package com.example.githubsearch.presentation.activity
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.RecyclerView
 import com.example.core.BaseActivity
 import com.example.domain.model.User
 import com.example.githubsearch.MyApplication
@@ -22,7 +19,6 @@ import com.example.githubsearch.presentation.adapter.UserLoadStateAdapter
 import com.example.githubsearch.presentation.intent.MainIntent
 import com.example.githubsearch.presentation.state.MainState
 import com.example.githubsearch.presentation.viewmodel.MainViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -45,7 +41,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
         binding.lifecycleOwner = this@MainActivity
 
         initView()
-        initScrollListener()
         initObservers()
     }
 
@@ -63,6 +58,68 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
             }
     }
 
+    private fun initObservers() {
+        mainViewModel.state.observe(this) {
+            when (it) {
+                is MainState.SearchUser -> renderMainRecyclerView(it)
+                is MainState.BookMarkUser -> renderBookMarkRecyclerView(it)
+                is MainState.IsBlank -> showToast(it)
+                is MainState.IsEmpty -> {
+                    if (it.isEmpty) {
+                        binding.refreshLayout.visibility = View.GONE
+                        binding.emptyView.visibility = View.VISIBLE
+                    } else {
+                        binding.refreshLayout.visibility = View.VISIBLE
+                        binding.emptyView.visibility = View.GONE
+                    }
+                }
+                is MainState.IsBookMarkEmpty -> {
+                    if (it.isBookMarkEmpty) {
+                        binding.favoriteRecyclerview.visibility = View.GONE
+                        binding.emptyBookMarkView.visibility = View.VISIBLE
+                    } else {
+                        binding.favoriteRecyclerview.visibility = View.VISIBLE
+                        binding.emptyBookMarkView.visibility = View.GONE
+                    }
+                }
+
+            }
+        }
+    }
+
+    private fun renderMainRecyclerView(mainState: MainState.SearchUser) {
+        lifecycleScope.launch {
+            val adapter = MainAdapter(::itemOnClick).apply {
+                addLoadStateListener { state ->
+                    mainViewModel.setUsersLoadState(
+                        if (state.refresh is LoadState.NotLoading && itemCount == 0) null else state
+                    )
+                }
+                binding.mainRecyclerview.adapter =
+                    withLoadStateFooter(UserLoadStateAdapter(::retry))
+            }
+            mainState.searchUser.collectLatest { data ->
+                adapter.submitData(data)
+            }
+        }
+    }
+
+    private fun renderBookMarkRecyclerView(mainState: MainState.BookMarkUser) {
+        val adapter = FavoriteAdapter(::itemOnClick)
+        binding.favoriteRecyclerview.adapter = adapter
+        adapter.submitList(mainState.bookmarkUser)
+    }
+
+    private fun showToast(mainState: MainState.IsBlank) {
+        if (mainState.isBlank) {
+            Toast.makeText(
+                this@MainActivity,
+                getString(R.string.main_userId_null),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
     private fun itemOnClick(user: User) {
         startActivity(
             Intent(this, DetailActivity::class.java)
@@ -70,65 +127,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
                 .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
         )
         binding.drawableLayout.closeDrawer(Gravity.RIGHT)
-    }
-
-    private fun initScrollListener() {
-        var temp = 0
-        binding.mainRecyclerview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (temp == 1) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    if (dy != 0) binding.etSearchId.clearFocus()
-                }
-            }
-
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                temp = 1
-            }
-        })
-    }
-
-    private fun initObservers() {
-        lifecycleScope.launch {
-            mainViewModel.state.collect {
-                when (it) {
-                    is MainState.SearchUser -> {
-                        val adapter = MainAdapter(::itemOnClick).apply {
-                            addLoadStateListener { state ->
-                                mainViewModel.setUsersLoadState(
-                                    if (state.refresh is LoadState.NotLoading && itemCount == 0) null else state
-                                )
-                            }
-                            binding.mainRecyclerview.adapter =
-                                withLoadStateFooter(UserLoadStateAdapter(::retry))
-                        }
-
-                        it.searchUser.collectLatest { data ->
-                            adapter.submitData(data)
-                        }
-                    }
-
-                    is MainState.BookMarkUser -> {
-                        val adapter = FavoriteAdapter(::itemOnClick)
-                        binding.favoriteRecyclerview.adapter = adapter
-                        adapter.submitList(it.bookmarkUser)
-                    }
-
-                    is MainState.IsBlank -> {
-                        if (it.isBlank) {
-                            Toast.makeText(
-                                this@MainActivity,
-                                getString(R.string.main_userId_null),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-
-                }
-            }
-        }
-
     }
 
     override fun onClick(v: View?) {

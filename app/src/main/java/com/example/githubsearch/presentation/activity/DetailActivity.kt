@@ -14,6 +14,9 @@ import com.example.githubsearch.MyApplication
 import com.example.githubsearch.R
 import com.example.githubsearch.databinding.ActivityDetailBinding
 import com.example.githubsearch.presentation.adapter.DetailAdapter
+import com.example.githubsearch.presentation.intent.DetailIntent
+import com.example.githubsearch.presentation.intent.MainIntent
+import com.example.githubsearch.presentation.state.DetailState
 import com.example.githubsearch.presentation.viewmodel.DetailViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -55,22 +58,34 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>({ ActivityDetailBindi
     }
 
     private fun initView() {
-        val str = intent.getStringExtra("userId")
-        detailViewModel.loadData(str)
-        str?.let { detailViewModel.isBookMarked(it) }
+        val userId = intent.getStringExtra("userId")
+        lifecycleScope.launch {
+            detailViewModel.detailIntent.send(DetailIntent.DetailUser(userId.toString()))
+        }
     }
 
     private fun initObservers() {
-        detailViewModel.info.observe(this) {
-            binding.userInfo = it
-        }
+        detailViewModel.state.observe(this) {
+            when (it) {
+                is DetailState.Repo -> {
+                    lifecycleScope.launch {
+                        val adapter = DetailAdapter(::itemOnClick)
+                        binding.detailRecyclerview.adapter = adapter
 
-        detailViewModel.repo.observe(this) {
-            val adapter = DetailAdapter(::itemOnClick)
-            binding.detailRecyclerview.adapter = adapter
-            lifecycleScope.launch {
-                it.collectLatest {
-                    adapter.submitData(it)
+                        it.repo.collectLatest { data ->
+                            adapter.submitData(data)
+                        }
+                    }
+                }
+
+                is DetailState.Info -> {
+                    lifecycleScope.launch {
+                        binding.userInfo = it.info
+                    }
+                }
+
+                is DetailState.IsChecked -> {
+                    binding.cbLike.isChecked = it.isChecked
                 }
             }
         }
@@ -82,11 +97,13 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>({ ActivityDetailBindi
     }
 
     fun isBookMarkClicked(userDetail: UserDetail) {
-        val info = User(userDetail.login, userDetail.avatarUrl)
-        if (binding.cbLike.isChecked) {
-            detailViewModel.addBookMark(info)
-        } else {
-            detailViewModel.deleteBookMark(info.login)
+        lifecycleScope.launch {
+            val info = User(userDetail.login, userDetail.avatarUrl)
+            if (binding.cbLike.isChecked) {
+                detailViewModel.detailIntent.send(DetailIntent.AddBookMark(info))
+            } else {
+                detailViewModel.detailIntent.send(DetailIntent.DeleteBookMark(info.login))
+            }
         }
     }
 

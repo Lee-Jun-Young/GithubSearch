@@ -96,7 +96,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/main_swipeLayout_marginStartEnd"
                     android:layout_marginEnd="@dimen/main_swipeLayout_marginStartEnd"
-                    android:visibility="@{mainVm.isEmpty ? View.GONE : View.VISIBLE}">
+                    android:visibility="gone">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/main_recyclerview"
@@ -113,7 +113,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/white"
-                    android:visibility="@{mainVm.isEmpty ? View.VISIBLE : View.GONE}">
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -152,15 +152,13 @@
                     android:layout_height="match_parent"
                     android:background="@color/white"
                     android:overScrollMode="never"
-                    android:visibility="@{mainVm.isEmptyBookMark ? View.GONE : View.VISIBLE}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                 <LinearLayout
                     android:id="@+id/emptyBookMarkView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:visibility="@{mainVm.isEmptyBookMark ? View.VISIBLE : View.GONE}">
+                    android:background="@color/white">
 
                     <LinearLayout
                         android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 package com.example.githubsearch.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,8 +10,15 @@ import com.example.domain.model.User
 import com.example.domain.model.UserDetail
 import com.example.domain.model.UserRepo
 import com.example.domain.usecase.*
+import com.example.githubsearch.presentation.intent.DetailIntent
+import com.example.githubsearch.presentation.intent.MainIntent
+import com.example.githubsearch.presentation.state.DetailState
+import com.example.githubsearch.presentation.state.MainState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,40 +30,54 @@ class DetailViewModel @Inject constructor(
     private val isCheckedBookMark: IsCheckedBookMarkUseCase
 ) : ViewModel() {
 
-    private val _info = MutableLiveData<UserDetail>()
-    val info: LiveData<UserDetail> = _info
+    val detailIntent = Channel<DetailIntent>(Channel.UNLIMITED)
 
-    private var _repo = MutableLiveData<Flow<PagingData<UserRepo>>>()
-    val repo: LiveData<Flow<PagingData<UserRepo>>> = _repo
+    private val _state = MutableLiveData<DetailState>(DetailState.Idle)
+    val state: LiveData<DetailState> get() = _state
 
-    private var _isBoolean = MutableLiveData<Boolean>()
-    val isBoolean: LiveData<Boolean> = _isBoolean
+    init {
+        handleIntent()
+    }
 
-    fun loadData(userId: String?) {
+    private fun handleIntent() {
+        viewModelScope.launch {
+            detailIntent.consumeAsFlow().collect {
+                when (it) {
+                    is DetailIntent.DetailUser -> {
+                        loadData(it.userId)
+                        isBookMarked(it.userId)
+                    }
+                    is DetailIntent.AddBookMark -> addBookMark(it.user)
+                    is DetailIntent.DeleteBookMark -> deleteBookMark(it.userId)
+                }
+            }
+        }
+    }
+
+    private fun loadData(userId: String?) {
         viewModelScope.launch {
             val detailData = getUserDataUseCase(userId.toString())
 
-            _info.postValue(detailData as UserDetail?)
+            _state.value = DetailState.Info(detailData as UserDetail)
         }
-
-        _repo.value = getRepoDataUseCase(userId.toString())
+        _state.value = DetailState.Repo(getRepoDataUseCase(userId.toString()))
     }
 
-    fun addBookMark(user: User) {
+    private fun addBookMark(user: User) {
         viewModelScope.launch(Dispatchers.IO) {
             addFavoriteUseCase(user)
         }
     }
 
-    fun deleteBookMark(userId: String) {
+    private fun deleteBookMark(userId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             deleteFavoriteUseCase(userId)
         }
     }
 
-    fun isBookMarked(userId: String) {
+    private fun isBookMarked(userId: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _isBoolean.postValue(isCheckedBookMark(userId))
+            _state.postValue(DetailState.IsChecked(isCheckedBookMark(userId)))
         }
     }
 

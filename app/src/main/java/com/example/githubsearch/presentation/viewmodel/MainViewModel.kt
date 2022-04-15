@@ -26,18 +26,12 @@ class MainViewModel @Inject constructor(
 ) :
     ViewModel() {
 
-    private var _isEmpty = MutableLiveData<Boolean>()
-    val isEmpty: LiveData<Boolean> = _isEmpty
-
-    private var _isEmptyBookMark = MutableLiveData<Boolean>()
-    val isEmptyBookMark: LiveData<Boolean> = _isEmptyBookMark
-
     val searchId = MutableLiveData<String>()
 
     val userIntent = Channel<MainIntent>(Channel.UNLIMITED)
 
-    private val _state = MutableStateFlow<MainState>(MainState.Idle)
-    val state: StateFlow<MainState> get() = _state
+    private val _state = MutableLiveData<MainState>(MainState.Idle)
+    val state: LiveData<MainState> get() = _state
 
     init {
         handleIntent()
@@ -66,17 +60,12 @@ class MainViewModel @Inject constructor(
 
     fun setUsersLoadState(loadState: CombinedLoadStates?) {
         val state = loadState?.refresh
-        _isEmpty.value = state == null
+        _state.value = MainState.IsEmpty(state == null)
     }
 
-    private fun getFavorites() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val result = getFavoritesUseCase()
-
-            _state.value = MainState.BookMarkUser(result)
-
-            _isEmptyBookMark.postValue(result.isEmpty())
-        }
+    private suspend fun getFavorites() {
+        _state.value = MainState.BookMarkUser(getFavoritesUseCase())
+        _state.value = MainState.IsBookMarkEmpty(getFavoritesUseCase().isEmpty())
     }
 
 }
