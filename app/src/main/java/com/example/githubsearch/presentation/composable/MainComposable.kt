@@ -187,6 +187,7 @@ fun BookMarkEmptyView() {
 fun SearchText(mainViewModel: MainViewModel) {
 
     val white = Color(0xFFFFFFFF)
+    val context = LocalContext.current
     var textState by remember { mutableStateOf(TextFieldValue()) }
     val focusManager = LocalFocusManager.current
     val scope = rememberCoroutineScope()
@@ -199,9 +200,13 @@ fun SearchText(mainViewModel: MainViewModel) {
         ),
         keyboardActions = KeyboardActions(
             onDone = {
-                focusManager.clearFocus()
-                scope.launch {
-                    mainViewModel.userIntent.send(MainIntent.SearchUser(textState.text))
+                if (textState.text.isNotBlank()) {
+                    focusManager.clearFocus()
+                    scope.launch {
+                        mainViewModel.userIntent.send(MainIntent.SearchUser(textState.text))
+                    }
+                } else {
+                    Toast.makeText(context, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
                 }
             }
         ),
