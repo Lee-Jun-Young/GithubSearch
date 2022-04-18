@@ -2,10 +2,12 @@ package com.example.githubsearch.presentation.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.activity.compose.setContent
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.example.core.BaseActivity
@@ -16,9 +18,11 @@ import com.example.githubsearch.databinding.ActivityMainBinding
 import com.example.githubsearch.presentation.adapter.FavoriteAdapter
 import com.example.githubsearch.presentation.adapter.MainAdapter
 import com.example.githubsearch.presentation.adapter.UserLoadStateAdapter
+import com.example.githubsearch.presentation.composable.Scaffold
 import com.example.githubsearch.presentation.intent.MainIntent
 import com.example.githubsearch.presentation.state.MainState
 import com.example.githubsearch.presentation.viewmodel.MainViewModel
+import com.google.accompanist.appcompattheme.AppCompatTheme
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,36 +34,55 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
     @Inject
     lateinit var mainViewModel: MainViewModel
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         (application as MyApplication).appComponent.inject(this)
 
         super.onCreate(savedInstanceState)
 
+/*
         binding.mainVm = mainViewModel
         binding.main = this@MainActivity
         binding.lifecycleOwner = this@MainActivity
+*/
 
-        initView()
-        initObservers()
-    }
-
-    private fun initView() {
-        binding.refreshLayout.setOnRefreshListener {
-            lifecycleScope.launch {
-                mainViewModel.userIntent.send(MainIntent.SearchUser)
-            }
-            binding.refreshLayout.isRefreshing = false
+        lifecycleScope.launch {
+            mainViewModel.userIntent.send(MainIntent.BookMarkUser)
         }
 
-        binding.etSearchId.onFocusChangeListener =
-            View.OnFocusChangeListener { _, hasFocus ->
-                if (hasFocus) binding.drawableLayout.closeDrawer(Gravity.RIGHT)
+        setContent {
+            AppCompatTheme {
+                Scaffold(
+                    mainViewModel = mainViewModel,
+                    onClick = ::itemOnClick
+                )
             }
+        }
+
+        //initView()
+        //initObservers()
+
     }
 
+    /*
+        private fun initView() {
+            binding.refreshLayout.setOnRefreshListener {
+                lifecycleScope.launch {
+                    mainViewModel.userIntent.send(MainIntent.SearchUser)
+                }
+                binding.refreshLayout.isRefreshing = false
+            }
+
+            binding.etSearchId.onFocusChangeListener =
+                View.OnFocusChangeListener { _, hasFocus ->
+                    if (hasFocus) binding.drawableLayout.closeDrawer(Gravity.RIGHT)
+                }
+        }
+    */
     private fun initObservers() {
         mainViewModel.state.observe(this) {
+            Log.d("test!!!", it.toString())
             when (it) {
                 is MainState.SearchUser -> renderMainRecyclerView(it)
                 is MainState.BookMarkUser -> renderBookMarkRecyclerView(it)
@@ -73,6 +96,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
                         binding.emptyView.visibility = View.GONE
                     }
                 }
+
                 is MainState.IsBookMarkEmpty -> {
                     if (it.isBookMarkEmpty) {
                         binding.favoriteRecyclerview.visibility = View.GONE
@@ -82,6 +106,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
                         binding.emptyBookMarkView.visibility = View.GONE
                     }
                 }
+
 
             }
         }

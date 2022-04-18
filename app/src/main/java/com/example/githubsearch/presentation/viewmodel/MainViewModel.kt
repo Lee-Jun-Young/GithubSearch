@@ -1,20 +1,14 @@
 package com.example.githubsearch.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.CombinedLoadStates
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import com.example.domain.model.User
-import com.example.domain.repository.UserRepository
 import com.example.domain.usecase.GetFavoritesUseCase
 import com.example.domain.usecase.SearchUserUseCase
 import com.example.githubsearch.presentation.intent.MainIntent
 import com.example.githubsearch.presentation.state.MainState
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -25,8 +19,6 @@ class MainViewModel @Inject constructor(
     private val getFavoritesUseCase: GetFavoritesUseCase
 ) :
     ViewModel() {
-
-    val searchId = MutableLiveData<String>()
 
     val userIntent = Channel<MainIntent>(Channel.UNLIMITED)
 
@@ -41,20 +33,19 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             userIntent.consumeAsFlow().collect {
                 when (it) {
-                    is MainIntent.SearchUser -> getUserId()
+                    is MainIntent.SearchUser -> getUserId(it.userId)
                     is MainIntent.BookMarkUser -> getFavorites()
                 }
             }
         }
     }
 
-    fun getUserId() {
-        val userId = searchId.value
+    private fun getUserId(searchId: String) {
 
-        if (userId.isNullOrBlank()) {
-            _state.value = MainState.IsBlank(userId.isNullOrBlank())
+        if (searchId.isNullOrBlank()) {
+            _state.value = MainState.IsBlank(searchId.isNullOrBlank())
         } else {
-            _state.value = MainState.SearchUser(getUserListUseCase(userId.toString()))
+            _state.value = MainState.SearchUser(getUserListUseCase(searchId.toString()))
         }
     }
 

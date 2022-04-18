@@ -2,7 +2,7 @@ package com.example.githubsearch.presentation.intent
 
 sealed class MainIntent {
 
-    object SearchUser : MainIntent()
+    class SearchUser(val userId: String) : MainIntent()
     object BookMarkUser : MainIntent()
 
 }
