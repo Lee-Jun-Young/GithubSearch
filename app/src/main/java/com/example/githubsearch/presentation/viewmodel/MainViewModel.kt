@@ -41,17 +41,11 @@ class MainViewModel @Inject constructor(
     }
 
     private fun getUserId(searchId: String) {
-
-        if (searchId.isNullOrBlank()) {
-            _state.value = MainState.IsBlank(searchId.isNullOrBlank())
+        if (searchId.isBlank()) {
+            _state.value = MainState.IsBlank(searchId.isBlank())
         } else {
             _state.value = MainState.SearchUser(getUserListUseCase(searchId.toString()))
         }
-    }
-
-    fun setUsersLoadState(loadState: CombinedLoadStates?) {
-        val state = loadState?.refresh
-        _state.value = MainState.IsEmpty(state == null)
     }
 
     private suspend fun getFavorites() {

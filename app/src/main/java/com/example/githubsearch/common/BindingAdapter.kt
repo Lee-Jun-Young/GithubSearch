@@ -16,15 +16,4 @@ object BindingAdapter {
             .into(imageView)
     }
 
-    @BindingAdapter("etAction")
-    @JvmStatic
-    fun onAction(editText: EditText, execute: () -> Unit){
-        editText.setOnEditorActionListener { _, actionId, _ ->
-            if(actionId == EditorInfo.IME_ACTION_DONE){
-                execute.invoke()
-            }
-            false
-        }
-    }
-
 }
