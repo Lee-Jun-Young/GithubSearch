@@ -50,7 +50,6 @@ class MainViewModel @Inject constructor(
 
     private suspend fun getFavorites() {
         _state.value = MainState.BookMarkUser(getFavoritesUseCase())
-        _state.value = MainState.IsBookMarkEmpty(getFavoritesUseCase().isEmpty())
     }
 
 }
