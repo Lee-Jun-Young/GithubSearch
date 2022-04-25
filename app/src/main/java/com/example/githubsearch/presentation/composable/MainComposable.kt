@@ -121,7 +121,7 @@ fun RvItem(user: User, onClick: (User) -> Unit) {
         }) {
         Surface(
             modifier = Modifier
-                .size(50.dp)
+                .size(64.dp)
                 .padding(8.dp),
             shape = CircleShape
         ) {
@@ -150,15 +150,16 @@ fun BookMarkView(viewModel: MainViewModel, onClick: (User) -> Unit) {
         with(it) {
             when (it) {
                 is MainState.BookMarkUser -> {
-                    LazyColumn {
-                        Modifier.fillMaxWidth()
-                        items(it.bookmarkUser) { user ->
-                            RvItem(user = user, onClick = onClick)
+                    if (it.bookmarkUser.isEmpty())
+                        BookMarkEmptyView()
+                    else {
+                        LazyColumn {
+                            Modifier.fillMaxWidth()
+                            items(it.bookmarkUser) { user ->
+                                RvItem(user = user, onClick = onClick)
+                            }
                         }
                     }
-                }
-                is MainState.IsBookMarkEmpty -> {
-                    if (it.isBookMarkEmpty) BookMarkEmptyView()
                 }
             }
         }

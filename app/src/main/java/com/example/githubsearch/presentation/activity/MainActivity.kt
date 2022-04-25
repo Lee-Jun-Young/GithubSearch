@@ -26,10 +26,6 @@ class MainActivity : ComponentActivity() {
 
         super.onCreate(savedInstanceState)
 
-        lifecycleScope.launch {
-            mainViewModel.userIntent.send(MainIntent.BookMarkUser)
-        }
-
         setContent {
             AppCompatTheme {
                 Scaffold(
